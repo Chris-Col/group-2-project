@@ -1,0 +1,16 @@
+CREATE TABLE users(
+    username VARCHAR(50) PRIMARY KEY,
+    email VARCHAR(70) UNIQUE NOT NULL,
+    password VARCHAR(60) NOT NULL
+);
+
+CREATE TABLE languages{
+    id int PRIMARY KEY,
+    name VARCHAR(50) UNIQUE NOT NULL,
+    code VARCHAR(10) UNIQUE NOT NULL 
+};
+
+CREATE TABLE games {
+    id int PRIMARY KEY,
+    name VARCHAR(50) UNIQUE NOT NULL
+};
