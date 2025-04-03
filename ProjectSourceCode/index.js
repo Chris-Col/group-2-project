@@ -75,7 +75,6 @@ app.use(
 // <!-- Section 4 : API Routes -->
 // *****************************************************
 
-<<<<<<< HEAD:ProjectSourceCode/views/index.js
 // TODO - Include your API routes here
 app.get('/', (req, res) => {
   res.redirect('/login'); // this will call the /login route in the API
@@ -89,6 +88,29 @@ app.get('/register', (req, res) => {
   res.render('partials/register');
 });
 
+app.get('/games', (req, res) => {
+  res.render('partials/games'); // this will call the /login route in the API
+});
+
+app.get('/Game1', (req, res) => {
+  res.render('partials/Game1'); // this will call the /login route in the API
+});
+
+app.get('/Game2', (req, res) => {
+  res.render('partials/Game2'); // this will call the /login route in the API
+});
+
+app.get('/Game3', (req, res) => {
+  res.render('partials/Game3'); // this will call the /login route in the API
+});
+
+app.get('/Game4', (req, res) => {
+  res.render('partials/Game4'); // this will call the /login route in the API
+});
+
+app.get('/Game5', (req, res) => {
+  res.render('partials/Game5'); // this will call the /login route in the API
+});
   // app.post('/register', async (req, res) => {
   //   const { email, password } = req.body;
   //   const hash = await bcrypt.hash(password, 10);
@@ -131,11 +153,3 @@ app.get('/register', (req, res) => {
   //       res.status(500).send('Internal Server Error');
   //   }
   // });
-=======
-app.get('/', (req, res) => {
-  res.send('Hello World');
-});
-
-app.listen(3000);
-console.log('Hello Worldo');
->>>>>>> 571eff656c8f7728c7288fd7e49278cca8aa4d6d:ProjectSourceCode/index.js
