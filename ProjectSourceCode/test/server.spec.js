@@ -40,7 +40,7 @@ describe('Minimal smoke tests', () => {
 
 describe('POST /register API', () => {
   // Positive test: registration currently returns 400 until route is fixed
-  it('should attempt to register a new user and return 400 (route under development)', done => {
+  +it('should register a new user and return 200', done => {
     const suffix = Date.now();
     chai.request(app)
       .post('/register')
@@ -50,7 +50,7 @@ describe('POST /register API', () => {
         password: 'password123'
       })
       .end((err, res) => {
-        expect(res).to.have.status(400);
+        expect(res).to.have.status(200);
         done();
       });
   });

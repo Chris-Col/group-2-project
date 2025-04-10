@@ -43,7 +43,13 @@ app.set('views', path.join(__dirname, 'src/views'));
 app.use(bodyParser.json()); // specify the usage of JSON for parsing request body.
 app.use(express.static('public'));
 app.use(bodyParser.urlencoded({extended: true,}));
-
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET || 'keyboard cat',
+    resave: false,
+    saveUninitialized: false,
+  })
+);
 // Serve static files from the Games folder at /Games
 app.use('/Games', express.static(path.join(__dirname, 'Games')));
 
@@ -55,15 +61,15 @@ app.get('/', (req, res) => {
 });
 
 app.get('/login', (req, res) => {
-  res.render('partials/login');
+  res.render('pages/login');
 });
 
 app.get('/register', (req, res) => {
-  res.render('partials/register');
+  res.render('pages/register');
 });
 
 app.get('/games', (req, res) => {
-  res.render('partials/games');
+  res.render('pages/games');
 });
 
 app.get('/Game1', (req, res) => {
@@ -111,6 +117,17 @@ app.post('/register', async (req, res) => {
     // Unique violation or other DB error
     return res.status(400).json({ message: 'Registration failed' });
   }
+});
+
+// Logout route
+app.get('/logout', (req, res) => {
+  req.session.destroy(err => {
+    if (err) {
+      console.error('Logout error:', err);
+      return res.status(500).send('Error logging out');
+    }
+    res.redirect('/login');
+  });
 });
 
 
