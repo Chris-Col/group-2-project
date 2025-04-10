@@ -78,7 +78,7 @@ app.get('/Game1', (req, res) => {
 });
 
 app.get('/game2', (req, res) => {
-  res.render('pages/Game2', { layout: false });
+  res.render('pages/dragdrop', { layout: false });
 });
 
 app.get('/Game3', (req, res) => {
