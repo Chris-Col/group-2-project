@@ -86,3 +86,6 @@ const dictionary = {
   
   languageSelect.addEventListener('change', initGame);
   initGame();
+
+const resetBtn = document.getElementById('reset');
+resetBtn.addEventListener('click', initGame);

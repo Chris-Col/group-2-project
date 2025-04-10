@@ -70,8 +70,8 @@ app.get('/Game1', (req, res) => {
   res.render('partials/Game1');
 });
 
-app.get('/Game2', (req, res) => {
-  res.render('partials/Game2');
+app.get('/game2', (req, res) => {
+  res.render('pages/Game2', { layout: false });
 });
 
 app.get('/Game3', (req, res) => {
