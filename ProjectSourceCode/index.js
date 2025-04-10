@@ -75,9 +75,6 @@ app.use(
 // <!-- Section 4 : API Routes -->
 // *****************************************************
 
-// app.get('/', (req, res) => {
-//   res.send('Hello World');
-// });
 // const auth = (req, res, next) => {
 //   // Unauthenticated routes
 //   if (req.path === '/login' || req.path === '/register') {
@@ -97,128 +94,72 @@ app.use(
 // app.use(auth);
 app.get('/', (req, res) => {
   res.redirect('/login');
-  //res.render('pages/welcome');
 });
 
-// login page
-app.get('/login', (req, res) => {
-  res.render('pages/login');
-});
-
-// register page
 app.get('/register', (req, res) => {
-  res.render('pages/register'); 
+res.render('pages/register'); 
 });
 
-// games page
-app.get('/games', (req, res) => {
-  res.render('pages/games'); 
+app.post('/register', async (req, res) => {
+  //hash the password using bcrypt library
+  const hash = await bcrypt.hash(req.body.password, 10);
+  // To-DO: Insert username and hashed password into the 'users' table
+  username = req.body.username
+  try {
+  const insertQuery = `INSERT INTO users (username, pw) VALUES ('${username}', '${hash}')`;
+  await db.any(insertQuery)
+  res.redirect('/login');
+} catch (error) {
+  console.error('Error during registration:', error);
+  res.redirect('/register');
+}
 });
 
-// pages for individual games
-app.get('/game1', (req, res) => {
-  res.render('pages/Game1'); 
+app.get('/login', (req, res) => {
+res.render('pages/login'); 
+});
+app.post('/login', async (req, res) => {
+const { username, password } = req.body;
+console.log('Login attempt for:', username);
+try {
+    query = `SELECT pw FROM users WHERE username = '${username}'`
+    let results = await db.any(query)
+    if (results.length === 0) {
+      res.status(404).send('User not Found');
+      return;
+    }
+    console.log(results)
+    const database_password = results[0].pw
+    const match = await bcrypt.compare(password, database_password);
+    console.log('Password match:', match);
+    if (!match) {
+        return res.render('pages/login', { message: 'Incorrect username or password.' });
+    }
+    else{
+    req.session.user = username;
+    req.session.save(() => {
+        console.log('Session saved. Redirecting to /games');
+        res.redirect('/games');
+    })};
+    app.get('/games', (req, res) => {
+      res.render('pages/games'); 
+      });
+      app.get('/welcome', (req, res) => {
+        res.render('pages/welcome'); 
+        });
+} catch (error) {
+    console.error('Login error:', error);
+    res.status(500).send('Internal Server Error');
+}
 });
 
-app.get('/game2', (req, res) => {
-  res.render('pages/Game2'); 
+app.get('/logout', (req, res) => {
+  req.session.destroy((err) => {
+    if (err) {
+      return res.status(500).send('Error logging out.');
+    }
+    res.render('pages/logout', { message: 'Logged out successfully' });
+  });
 });
-
-app.get('/game3', (req, res) => {
-  res.render('pages/Game3'); 
-});
-
-app.get('/game4', (req, res) => {
-  res.render('pages/Game4'); 
-});
-
-app.get('/game5', (req, res) => {
-  res.render('pages/Game5'); 
-});
-
-// app.post('/register', async (req, res) => {
-//     //hash the password using bcrypt library
-//     const hash = await bcrypt.hash(req.body.password, 10);
-//     // To-DO: Insert username and hashed password into the 'users' table
-//     username = req.body.username
-//     try {
-//     const insertQuery = `INSERT INTO users (username, password) VALUES ('${username}', '${hash}')`;
-//     await db.any(insertQuery)
-//     res.redirect('/login');
-//   } catch (error) {
-//     console.error('Error during registration:', error);
-//     res.redirect('/register');
-//   }
-// });
-
-// app.get('/login', (req, res) => {
-//   res.render('pages/login'); 
-// });
-// app.post('/login', async (req, res) => {
-//   const { username, password } = req.body;
-//   console.log('Login attempt for:', username);
-//   try {
-//       query = `SELECT password FROM users WHERE username = '${username}'`
-//       let results = await db.any(query)
-//       if (results.length === 0) {
-//         res.status(404).send('User not Found');
-//         return;
-//       }
-//       console.log(results)
-//       const database_password = results[0].password
-//       const match = await bcrypt.compare(password, database_password);
-//       console.log('Password match:', match);
-//       if (!match) {
-//           return res.render('pages/login', { message: 'Incorrect username or password.' });
-//       }
-//       else{
-//       req.session.user = username;
-//       req.session.save(() => {
-//           console.log('Session saved. Redirecting to /discover');
-//           res.redirect('/discover');
-//       })};
-
-//   } catch (error) {
-//       console.error('Login error:', error);
-//       res.status(500).send('Internal Server Error');
-//   }
-// });
-// app.get('/discover', async (req, res) => {
-//   axios({
-//     url: `https://app.ticketmaster.com/discovery/v2/events.json`,
-//     method: 'GET',
-//     dataType: 'json',
-//     headers: {
-//       'Accept-Encoding': 'application/json',
-//     },
-//     params: {
-//       apikey: process.env.API_KEY,
-//       size: 10 // you can choose the number of events you would like to return
-//     },
-//   })
-//     .then(results => {
-//       console.log(results.data._embedded.events); // the results will be displayed on the terminal if the docker containers are running // Send some parameters
-//       // transform each event into what your page wants
-//       //pass to the page
-//       transformed = []
-//       for (const element of results.data._embedded.events){
-//         let transformed_event = {name: element.name, image: element.images[0].url, date: element.dates.start.localDate, time: element.dates.start.localTime, bookingUrl: element.url}
-//         transformed.push(transformed_event)
-//       }
-//       res.render('pages/discover', { events: transformed});
-//     })
-//     .catch(error => {
-//       // Handle errors
-//       res.render('pages/discover', { events: [], error: 'Failed to fetch events' });
-//     });
-// });
-// app.get('/logout', (req, res) => {
-//   req.session.destroy((err) => {
-//     if (err) {
-//       return res.status(500).send('Error logging out.');
-//     }
-//     res.render('pages/logout', { message: 'Logged out successfully' });
-//   });
-// });
 app.listen(3000);
 console.log('Hello World');
