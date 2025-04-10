@@ -1,0 +1,25 @@
+.word-list, .drop-zones {
+    display: flex;
+    gap: 1rem;
+    margin: 1rem;
+  }
+  
+  .word, .zone {
+    padding: 1rem;
+    border: 1px solid #333;
+    border-radius: 4px;
+    user-select: none;
+    cursor: grab;
+  }
+  
+  .zone.over {
+    background: #f0f0f0;
+  }
+  
+  .zone.correct {
+    background: #c8e6c9;
+  }
+  
+  .zone.wrong {
+    background: #ffcdd2;
+  }

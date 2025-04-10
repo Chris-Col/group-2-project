@@ -39,17 +39,13 @@ const db = pgp(dbConfig);
 app.engine('hbs', hbs.engine);
 app.set('view engine', 'hbs');
 app.set('views', path.join(__dirname, 'src/views'));
+
 app.use(bodyParser.json()); // specify the usage of JSON for parsing request body.
 app.use(express.static('public'));
+app.use(bodyParser.urlencoded({extended: true,}));
 
-app.use(bodyParser.json());
-app.use(express.static('public'));
-
-app.use(
-  bodyParser.urlencoded({
-    extended: true,
-  })
-);
+// Serve static files from the Games folder at /Games
+app.use('/Games', express.static(path.join(__dirname, 'Games')));
 
 // *****************************************************
 // <!-- Section 4 : API Routes -->
