@@ -93,17 +93,48 @@ app.use(
 // };
 
 // Authentication Required
+
 // app.use(auth);
 app.get('/', (req, res) => {
-    res.redirect('/login');
-  });
+  res.redirect('/login');
+  //res.render('pages/welcome');
+});
 
-  app.get('/login', (req, res) => {
-    res.render('pages/login');
-  });
-// app.get('/register', (req, res) => {
-//   res.render('pages/register'); 
-// });
+// login page
+app.get('/login', (req, res) => {
+  res.render('pages/login');
+});
+
+// register page
+app.get('/register', (req, res) => {
+  res.render('pages/register'); 
+});
+
+// games page
+app.get('/games', (req, res) => {
+  res.render('pages/games'); 
+});
+
+// pages for individual games
+app.get('/game1', (req, res) => {
+  res.render('pages/Game1'); 
+});
+
+app.get('/game2', (req, res) => {
+  res.render('pages/Game2'); 
+});
+
+app.get('/game3', (req, res) => {
+  res.render('pages/Game3'); 
+});
+
+app.get('/game4', (req, res) => {
+  res.render('pages/Game4'); 
+});
+
+app.get('/game5', (req, res) => {
+  res.render('pages/Game5'); 
+});
 
 // app.post('/register', async (req, res) => {
 //     //hash the password using bcrypt library
@@ -190,4 +221,4 @@ app.get('/', (req, res) => {
 //   });
 // });
 app.listen(3000);
-console.log('Hello Worldo');
+console.log('Hello World');
