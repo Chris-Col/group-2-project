@@ -19,8 +19,8 @@ const axios = require('axios');
 
 const hbs = handlebars.create({
   extname: 'hbs',
-  layoutsDir: __dirname + '/views/layouts',
-  partialsDir: __dirname + '/views/partials',
+  layoutsDir: __dirname + '/src/views/layouts',
+  partialsDir: __dirname + '/src/views/partials',
 });
 
 const dbConfig = {
@@ -38,7 +38,9 @@ const db = pgp(dbConfig);
 // *****************************************************
 app.engine('hbs', hbs.engine);
 app.set('view engine', 'hbs');
-app.set('views', path.join(__dirname, 'views'));
+app.set('views', path.join(__dirname, 'src/views'));
+app.use(bodyParser.json()); // specify the usage of JSON for parsing request body.
+app.use(express.static('public'));
 
 app.use(bodyParser.json());
 app.use(express.static('public'));
@@ -52,7 +54,6 @@ app.use(
 // *****************************************************
 // <!-- Section 4 : API Routes -->
 // *****************************************************
-
 app.get('/', (req, res) => {
   res.redirect('/login');
 });
