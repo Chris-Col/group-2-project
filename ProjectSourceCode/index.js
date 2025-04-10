@@ -20,8 +20,8 @@ const axios = require('axios'); // To make HTTP requests from our server. We'll 
 // create `ExpressHandlebars` instance and configure the layouts and partials dir.
 const hbs = handlebars.create({
   extname: 'hbs',
-  layoutsDir: __dirname + '/views/layouts',
-  partialsDir: __dirname + '/views/partials',
+  layoutsDir: __dirname + '/src/views/layouts',
+  partialsDir: __dirname + '/src/views/partials',
 });
 
 // database configuration
@@ -52,7 +52,7 @@ db.connect()
 // Register `hbs` as our view engine using its bound `engine()` function.
 app.engine('hbs', hbs.engine);
 app.set('view engine', 'hbs');
-app.set('views', path.join(__dirname, 'views'));
+app.set('views', path.join(__dirname, 'src/views'));
 app.use(bodyParser.json()); // specify the usage of JSON for parsing request body.
 app.use(express.static('public'));
 
@@ -75,9 +75,119 @@ app.use(
 // <!-- Section 4 : API Routes -->
 // *****************************************************
 
-app.get('/', (req, res) => {
-  res.send('Hello World');
-});
+// app.get('/', (req, res) => {
+//   res.send('Hello World');
+// });
+// const auth = (req, res, next) => {
+//   // Unauthenticated routes
+//   if (req.path === '/login' || req.path === '/register') {
+//     next();
+//     return;
+//   }
 
+//   if (!req.session.user) {
+//     // Default to login page.
+//     return res.redirect('/login');
+//   }
+//   next();
+// };
+
+// Authentication Required
+// app.use(auth);
+app.get('/', (req, res) => {
+    res.redirect('/login');
+  });
+
+  app.get('/login', (req, res) => {
+    res.render('pages/login');
+  });
+// app.get('/register', (req, res) => {
+//   res.render('pages/register'); 
+// });
+
+// app.post('/register', async (req, res) => {
+//     //hash the password using bcrypt library
+//     const hash = await bcrypt.hash(req.body.password, 10);
+//     // To-DO: Insert username and hashed password into the 'users' table
+//     username = req.body.username
+//     try {
+//     const insertQuery = `INSERT INTO users (username, password) VALUES ('${username}', '${hash}')`;
+//     await db.any(insertQuery)
+//     res.redirect('/login');
+//   } catch (error) {
+//     console.error('Error during registration:', error);
+//     res.redirect('/register');
+//   }
+// });
+
+// app.get('/login', (req, res) => {
+//   res.render('pages/login'); 
+// });
+// app.post('/login', async (req, res) => {
+//   const { username, password } = req.body;
+//   console.log('Login attempt for:', username);
+//   try {
+//       query = `SELECT password FROM users WHERE username = '${username}'`
+//       let results = await db.any(query)
+//       if (results.length === 0) {
+//         res.status(404).send('User not Found');
+//         return;
+//       }
+//       console.log(results)
+//       const database_password = results[0].password
+//       const match = await bcrypt.compare(password, database_password);
+//       console.log('Password match:', match);
+//       if (!match) {
+//           return res.render('pages/login', { message: 'Incorrect username or password.' });
+//       }
+//       else{
+//       req.session.user = username;
+//       req.session.save(() => {
+//           console.log('Session saved. Redirecting to /discover');
+//           res.redirect('/discover');
+//       })};
+
+//   } catch (error) {
+//       console.error('Login error:', error);
+//       res.status(500).send('Internal Server Error');
+//   }
+// });
+// app.get('/discover', async (req, res) => {
+//   axios({
+//     url: `https://app.ticketmaster.com/discovery/v2/events.json`,
+//     method: 'GET',
+//     dataType: 'json',
+//     headers: {
+//       'Accept-Encoding': 'application/json',
+//     },
+//     params: {
+//       apikey: process.env.API_KEY,
+//       size: 10 // you can choose the number of events you would like to return
+//     },
+//   })
+//     .then(results => {
+//       console.log(results.data._embedded.events); // the results will be displayed on the terminal if the docker containers are running // Send some parameters
+//       // transform each event into what your page wants
+//       //pass to the page
+//       transformed = []
+//       for (const element of results.data._embedded.events){
+//         let transformed_event = {name: element.name, image: element.images[0].url, date: element.dates.start.localDate, time: element.dates.start.localTime, bookingUrl: element.url}
+//         transformed.push(transformed_event)
+//       }
+//       res.render('pages/discover', { events: transformed});
+//     })
+//     .catch(error => {
+//       // Handle errors
+//       res.render('pages/discover', { events: [], error: 'Failed to fetch events' });
+//     });
+// });
+// app.get('/logout', (req, res) => {
+//   req.session.destroy((err) => {
+//     if (err) {
+//       return res.status(500).send('Error logging out.');
+//     }
+//     res.render('pages/logout', { message: 'Logged out successfully' });
+//   });
+// });
 app.listen(3000);
 console.log('Hello Worldo');
