@@ -72,52 +72,62 @@ app.use(
 );
 
 // *****************************************************
-// <!-- Section 4 : API Routes -->
+// <!-- Section 4 : API Routes (GET) -->
 // *****************************************************
 
 app.get('/', (req, res) => {
-  res.redirect('partials/login'); // Redirect user to the login page
+  res.redirect('/login'); // Redirect user to the login page
 });
 
 app.get('/login', (req, res) => {
-  res.render('partials/login'); // Redirect user to the login page
+  res.render('pages/login'); // Redirect user to the login page
 });
 
 app.get('/register', (req, res) => {
-  res.render('partials/register'); // Redirect user to the register page
+  res.render('pages/register'); // Redirect user to the register page
 });
 
 app.get('/games', (req, res) => {
-  res.render('partials/games'); // Redirect user to the games page
+  res.render('pages/games'); // Redirect user to the games page
 });
 
 app.get('/Game1', (req, res) => {
-  res.render('partials/Game1'); // Redirect user to the Game1 page
+  res.render('pages/Game1'); // Redirect user to the Game1 page
 });
 
 app.get('/Game2', (req, res) => {
-  res.render('partials/Game2'); // Redirect user to the Game2 page
+  res.render('pages/Game2'); // Redirect user to the Game2 page
 });
 
 app.get('/Game3', (req, res) => {
-  res.render('partials/Game3'); // Redirect user to the Game3 page
+  res.render('pages/Game3'); // Redirect user to the Game3 page
 });
 
 app.get('/Game4', (req, res) => {
-  res.render('partials/Game4'); // Redirect user to the Game4 page
+  res.render('pages/Game4'); // Redirect user to the Game4 page
 });
 
 app.get('/Game5', (req, res) => {
-  res.render('partials/Game5'); // Redirect user to the Game5 page
+  res.render('pages/Game5'); // Redirect user to the Game5 page
 });
 
 app.get('/welcome', (req, res) => {
-  res.render('partials/welcome'); // Redirect user to the welcome page
+  res.render('pages/welcome'); // Redirect user to the welcome page
 });
 
 app.get('/logout', (req, res) => {
-  res.render('partials/logout'); // Redirect user to the logout page
+  res.render('pages/logout'); // Redirect user to the logout page
 });
+
+// *****************************************************
+// <!-- Section 4.5 : API Routes (POST) -->
+// *****************************************************
+
+
+
+// *****************************************************
+// <!-- Section 5 : Server Startup -->
+// *****************************************************
 
 app.listen(3000); // Let the web server connect to port 3000
 console.log('Server is running on port 3000'); // Confirm that the server is running on port 3000
