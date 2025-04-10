@@ -9,61 +9,39 @@ const Handlebars = require('handlebars');
 const path = require('path');
 const pgp = require('pg-promise')(); // To connect to the Postgres DB from the node server
 const bodyParser = require('body-parser');
-const session = require('express-session'); // To set the session object. To store or access session data, use the `req.session`, which is (generally) serialized as JSON by the store.
-const bcrypt = require('bcryptjs'); //  To hash passwords
-const axios = require('axios'); // To make HTTP requests from our server. We'll learn more about it in Part C.
+const session = require('express-session');
+const bcrypt = require('bcryptjs');
+const axios = require('axios');
 
 // *****************************************************
 // <!-- Section 2 : Connect to DB -->
 // *****************************************************
 
-// create `ExpressHandlebars` instance and configure the layouts and partials dir.
 const hbs = handlebars.create({
   extname: 'hbs',
   layoutsDir: __dirname + '/views/layouts',
   partialsDir: __dirname + '/views/partials',
 });
 
-// database configuration
 const dbConfig = {
-  host: 'db', // the database server
-  port: 5432, // the database port
-  database: process.env.POSTGRES_DB, // the database name
-  user: process.env.POSTGRES_USER, // the user account to connect with
-  password: process.env.POSTGRES_PASSWORD, // the password of the user account
+  host: 'db',
+  port: 5432,
+  database: process.env.POSTGRES_DB,
+  user: process.env.POSTGRES_USER,
+  password: process.env.POSTGRES_PASSWORD,
 };
 
 const db = pgp(dbConfig);
 
-// test your database
-db.connect()
-  .then(obj => {
-    console.log('Database connection successful'); // you can view this message in the docker compose logs
-    obj.done(); // success, release the connection;
-  })
-  .catch(error => {
-    console.log('ERROR:', error.message || error);
-  });
-
 // *****************************************************
 // <!-- Section 3 : App Settings -->
 // *****************************************************
-
-// Register `hbs` as our view engine using its bound `engine()` function.
 app.engine('hbs', hbs.engine);
 app.set('view engine', 'hbs');
 app.set('views', path.join(__dirname, 'views'));
-app.use(bodyParser.json()); // specify the usage of JSON for parsing request body.
-app.use(express.static('public'));
 
-// initialize session variables
-app.use(
-  session({
-    secret: process.env.SESSION_SECRET,
-    saveUninitialized: false,
-    resave: false,
-  })
-);
+app.use(bodyParser.json());
+app.use(express.static('public'));
 
 app.use(
   bodyParser.urlencoded({
@@ -75,13 +53,12 @@ app.use(
 // <!-- Section 4 : API Routes -->
 // *****************************************************
 
-// TODO - Include your API routes here
 app.get('/', (req, res) => {
-  res.redirect('/login'); // this will call the /login route in the API
+  res.redirect('/login');
 });
 
 app.get('/login', (req, res) => {
-  res.render('partials/login'); // this will call the /login route in the API
+  res.render('partials/login');
 });
 
 app.get('/register', (req, res) => {
@@ -89,67 +66,63 @@ app.get('/register', (req, res) => {
 });
 
 app.get('/games', (req, res) => {
-  res.render('partials/games'); // this will call the /login route in the API
+  res.render('partials/games');
 });
 
 app.get('/Game1', (req, res) => {
-  res.render('partials/Game1'); // this will call the /login route in the API
+  res.render('partials/Game1');
 });
 
 app.get('/Game2', (req, res) => {
-  res.render('partials/Game2'); // this will call the /login route in the API
+  res.render('partials/Game2');
 });
 
 app.get('/Game3', (req, res) => {
-  res.render('partials/Game3'); // this will call the /login route in the API
+  res.render('partials/Game3');
 });
 
 app.get('/Game4', (req, res) => {
-  res.render('partials/Game4'); // this will call the /login route in the API
+  res.render('partials/Game4');
 });
 
 app.get('/Game5', (req, res) => {
-  res.render('partials/Game5'); // this will call the /login route in the API
+  res.render('partials/Game5');
 });
-  // app.post('/register', async (req, res) => {
-  //   const { email, password } = req.body;
-  //   const hash = await bcrypt.hash(password, 10);
-  //   try {
-  //     await db.none('INSERT INTO users(email, password) VALUES($1, $2)', [
-  //       email,
-  //       hash,
-  //     ]);
-  //     res.redirect('/login');
-  //   } catch (error) {
-  //     res.render('pages/register', { error });
-  //   }
-  // });
 
-  // app.post('/login', async (req, res) => {
-  //   const { username, password } = req.body;
+app.get('/welcome', (req, res) => {
+  res.json({ status: 'success', message: 'Welcome!' });
+});
 
-  //   try {
-  //       const result = await pool.query('SELECT * FROM users WHERE username = $1', [username]);
+app.post('/register', async (req, res) => {
+  try {
+    const { username, email, password } = req.body;
+    if (!username || !email || !password) {
+      return res.status(400).json({ message: 'Missing fields' });
+    }
 
-  //       if (result.rows.length === 0) {
-  //           return res.redirect('/register'); // User not found, redirect to register page
-  //       }
+    // Hash the password
+    const hash = await bcrypt.hash(password, 10);
 
-  //       const user = result.rows[0];
-  //       const match = await bcrypt.compare(password, user.password); // Compare passwords
+    // Insert into users table
+    await db.none(
+      'INSERT INTO users(username, email, pw) VALUES($1, $2, $3)',
+      [username, email, hash]
+    );
 
-  //       if (!match) {
-  //           return res.render('/login', { message: 'Incorrect username or password.' });
-  //       }
+    return res.status(200).json({ message: 'User registered' });
+  } catch (err) {
+    // Unique violation or other DB error
+    return res.status(400).json({ message: 'Registration failed' });
+  }
+});
 
-  //       // Save user in session
-  //       req.session.user = user;
-  //       req.session.save(() => {
-  //           res.redirect('/discover'); // Redirect to discover page after login
-  //       });
 
-  //   } catch (error) {
-  //       console.error('Login error:', error);
-  //       res.status(500).send('Internal Server Error');
-  //   }
-  // });
+// *****************************************************
+// <!-- Section 5 : Server Start & Export -->
+// *****************************************************
+
+const PORT = process.env.PORT || 3000;
+// Start the server and export the instance for tests
+module.exports = app.listen(PORT, () => {
+  console.log(`Server listening on port ${PORT}`);
+});
