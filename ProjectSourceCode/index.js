@@ -50,9 +50,10 @@ app.use(
     saveUninitialized: false,
   })
 );
+
 // Serve static files from the Games folder at /Games
 app.use('/Games', express.static(path.join(__dirname, 'Games')));
-
+app.use('/pages', express.static(path.join(__dirname, 'src/views/pages')));
 // *****************************************************
 // <!-- Section 4 : API Routes -->
 // *****************************************************
