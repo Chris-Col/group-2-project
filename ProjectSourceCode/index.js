@@ -119,5 +119,5 @@ app.get('/logout', (req, res) => {
   res.render('partials/logout'); // Redirect user to the logout page
 });
 
-app.listen(3000);
-console.log('Hello Worldo');
+app.listen(3000); // Let the web server connect to port 3000
+console.log('Server is running on port 3000'); // Confirm that the server is running on port 3000
