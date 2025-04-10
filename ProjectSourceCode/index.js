@@ -75,9 +75,81 @@ app.use(
 // <!-- Section 4 : API Routes -->
 // *****************************************************
 
+// TODO - Include your API routes here
 app.get('/', (req, res) => {
-  res.send('Hello World');
+  res.redirect('/login'); // this will call the /login route in the API
 });
 
-app.listen(3000);
-console.log('Hello Worldo');
+app.get('/login', (req, res) => {
+  res.render('partials/login'); // this will call the /login route in the API
+});
+
+app.get('/register', (req, res) => {
+  res.render('partials/register');
+});
+
+app.get('/games', (req, res) => {
+  res.render('partials/games'); // this will call the /login route in the API
+});
+
+app.get('/Game1', (req, res) => {
+  res.render('partials/Game1'); // this will call the /login route in the API
+});
+
+app.get('/Game2', (req, res) => {
+  res.render('partials/Game2'); // this will call the /login route in the API
+});
+
+app.get('/Game3', (req, res) => {
+  res.render('partials/Game3'); // this will call the /login route in the API
+});
+
+app.get('/Game4', (req, res) => {
+  res.render('partials/Game4'); // this will call the /login route in the API
+});
+
+app.get('/Game5', (req, res) => {
+  res.render('partials/Game5'); // this will call the /login route in the API
+});
+  // app.post('/register', async (req, res) => {
+  //   const { email, password } = req.body;
+  //   const hash = await bcrypt.hash(password, 10);
+  //   try {
+  //     await db.none('INSERT INTO users(email, password) VALUES($1, $2)', [
+  //       email,
+  //       hash,
+  //     ]);
+  //     res.redirect('/login');
+  //   } catch (error) {
+  //     res.render('pages/register', { error });
+  //   }
+  // });
+
+  // app.post('/login', async (req, res) => {
+  //   const { username, password } = req.body;
+
+  //   try {
+  //       const result = await pool.query('SELECT * FROM users WHERE username = $1', [username]);
+
+  //       if (result.rows.length === 0) {
+  //           return res.redirect('/register'); // User not found, redirect to register page
+  //       }
+
+  //       const user = result.rows[0];
+  //       const match = await bcrypt.compare(password, user.password); // Compare passwords
+
+  //       if (!match) {
+  //           return res.render('/login', { message: 'Incorrect username or password.' });
+  //       }
+
+  //       // Save user in session
+  //       req.session.user = user;
+  //       req.session.save(() => {
+  //           res.redirect('/discover'); // Redirect to discover page after login
+  //       });
+
+  //   } catch (error) {
+  //       console.error('Login error:', error);
+  //       res.status(500).send('Internal Server Error');
+  //   }
+  // });
