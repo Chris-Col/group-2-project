@@ -153,6 +153,32 @@ try {
 }
 });
 
+// games page
+app.get('/games', (req, res) => {
+  res.render('pages/games', {target_language: req.query.lang || 'en'});
+});
+
+// pages for individual games
+app.get('/game1', (req, res) => {
+  res.render('pages/Game1'); 
+});
+
+app.get('/game2', (req, res) => {
+  res.render('pages/Game2'); 
+});
+
+app.get('/game3', (req, res) => {
+  res.render('pages/Game3'); 
+});
+
+app.get('/game4', (req, res) => {
+  res.render('pages/Game4'); 
+});
+
+app.get('/game5', (req, res) => {
+  res.render('pages/Game5'); 
+});
+
 app.get('/logout', (req, res) => {
   req.session.destroy((err) => {
     if (err) {
