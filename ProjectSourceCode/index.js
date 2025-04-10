@@ -75,59 +75,91 @@ app.use(
 // <!-- Section 4 : API Routes (GET) -->
 // *****************************************************
 
-app.get('/', (req, res) => {
-  res.redirect('/login'); // Redirect user to the login page
-});
+// const auth = (req, res, next) => {
+//   // Unauthenticated routes
+//   if (req.path === '/login' || req.path === '/register') {
+//     next();
+//     return;
+//   }
 
-app.get('/login', (req, res) => {
-  res.render('pages/login'); // Redirect user to the login page
+//   if (!req.session.user) {
+//     // Default to login page.
+//     return res.redirect('/login');
+//   }
+//   next();
+// };
+
+// Authentication Required
+
+// app.use(auth);
+app.get('/', (req, res) => {
+  res.redirect('/login');
 });
 
 app.get('/register', (req, res) => {
-  res.render('pages/register'); // Redirect user to the register page
+res.render('pages/register'); 
 });
 
-app.get('/games', (req, res) => {
-  res.render('pages/games'); // Redirect user to the games page
+app.post('/register', async (req, res) => {
+  //hash the password using bcrypt library
+  const hash = await bcrypt.hash(req.body.password, 10);
+  // To-DO: Insert username and hashed password into the 'users' table
+  username = req.body.username
+  try {
+  const insertQuery = `INSERT INTO users (username, pw) VALUES ('${username}', '${hash}')`;
+  await db.any(insertQuery)
+  res.redirect('/login');
+} catch (error) {
+  console.error('Error during registration:', error);
+  res.redirect('/register');
+}
 });
 
-app.get('/Game1', (req, res) => {
-  res.render('pages/Game1'); // Redirect user to the Game1 page
+app.get('/login', (req, res) => {
+res.render('pages/login'); 
 });
-
-app.get('/Game2', (req, res) => {
-  res.render('pages/Game2'); // Redirect user to the Game2 page
-});
-
-app.get('/Game3', (req, res) => {
-  res.render('pages/Game3'); // Redirect user to the Game3 page
-});
-
-app.get('/Game4', (req, res) => {
-  res.render('pages/Game4'); // Redirect user to the Game4 page
-});
-
-app.get('/Game5', (req, res) => {
-  res.render('pages/Game5'); // Redirect user to the Game5 page
-});
-
-app.get('/welcome', (req, res) => {
-  res.render('pages/welcome'); // Redirect user to the welcome page
+app.post('/login', async (req, res) => {
+const { username, password } = req.body;
+console.log('Login attempt for:', username);
+try {
+    query = `SELECT pw FROM users WHERE username = '${username}'`
+    let results = await db.any(query)
+    if (results.length === 0) {
+      res.status(404).send('User not Found');
+      return;
+    }
+    console.log(results)
+    const database_password = results[0].pw
+    const match = await bcrypt.compare(password, database_password);
+    console.log('Password match:', match);
+    if (!match) {
+        return res.render('pages/login', { message: 'Incorrect username or password.' });
+    }
+    else{
+    req.session.user = username;
+    req.session.save(() => {
+        console.log('Session saved. Redirecting to /games');
+        res.redirect('/games');
+    })};
+    app.get('/games', (req, res) => {
+      res.render('pages/games'); 
+      });
+      app.get('/welcome', (req, res) => {
+        res.render('pages/welcome'); 
+        });
+} catch (error) {
+    console.error('Login error:', error);
+    res.status(500).send('Internal Server Error');
+}
 });
 
 app.get('/logout', (req, res) => {
-  res.render('pages/logout'); // Redirect user to the logout page
+  req.session.destroy((err) => {
+    if (err) {
+      return res.status(500).send('Error logging out.');
+    }
+    res.render('pages/logout', { message: 'Logged out successfully' });
+  });
 });
-
-// *****************************************************
-// <!-- Section 4.5 : API Routes (POST) -->
-// *****************************************************
-
-
-
-// *****************************************************
-// <!-- Section 5 : Server Startup -->
-// *****************************************************
-
-app.listen(3000); // Let the web server connect to port 3000
-console.log('Server is running on port 3000'); // Confirm that the server is running on port 3000
+app.listen(3000);
+console.log('Hello World');
