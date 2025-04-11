@@ -70,6 +70,7 @@ app.use('/pages', express.static(path.join(__dirname, 'src/views/pages')));
 // *****************************************************
 // <!-- Section 4 : API Routes -->
 // *****************************************************
+
 app.get('/', (req, res) => {
   return res.redirect('/login');
 });
