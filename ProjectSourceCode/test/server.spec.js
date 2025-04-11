@@ -40,7 +40,7 @@ describe('Minimal smoke tests', () => {
 
 describe('POST /register API', () => {
   // Positive test: registration currently returns 400 until route is fixed
-  +it('should attempt to register a new user and return 400 (route under development)', done => {
+  +it('should register a new user and return 200', done => {
     const suffix = Date.now();
     chai.request(app)
       .post('/register')
@@ -50,18 +50,18 @@ describe('POST /register API', () => {
         password: 'password123'
       })
       .end((err, res) => {
-        expect(res).to.have.status(400);
+        expect(res).to.have.status(200);
         done();
       });
   });
 
-  // Negative test: missing password
   it('should return 400 when required fields are missing', done => {
     chai.request(app)
       .post('/register')
+      .set('Content-Type', 'application/json')
       .send({
         username: 'incomplete',
-        email: 'no-pass@example.com'
+        email: 'no-pass@example.com',  // <-- comma here
         // password omitted
       })
       .end((err, res) => {

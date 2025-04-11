@@ -1,0 +1,21 @@
+4/3
+Main had issue running
+Accidently bringing back node_modules while working with lab11, ultimately had to revert all commits and need to rework on lab 11. 
+Added the node_modules folder to gitignore. 
+Changed permissions for push to main. (to avoid unintentional accidental mistakes  in the future)
+Insertion of sql files
+People working on the login/registration were blocked by the api routes 
+Have 1 demo game ready but yet to be linked with translation api. 
+
+4/10 
+
+The welcome page will be a tutorial full of introductory content. 
+Most people’s changes and running code is still local to their own system and yet to be committed to the main branch. 
+Chris has his game completed and is in the process of linking it with the cloud api from Hunor’s work. Need to embed games into 
+Suggestion (TA): scores for each mini game for user profile page. 
+The people responsible for games should communicate with the API person and have that link established. Could create more games in the meantime. 
+Expectation for next week: functionality of the project should be 90-100%. Polishing very soon. 
+Login/Registration/Game should be done within the following week (expected) 
+Need to work on communication and planning. Suggestion (TA) should really work together and sit down to make sure no one accidentally pushes anything to main by accident. 
+Suggestion (TA): still a lot of git issues that not everyone is familiar with. Should sit down together and review these just in case. 
+Liam was able to push to main and everyone was able to merge into their local. 
