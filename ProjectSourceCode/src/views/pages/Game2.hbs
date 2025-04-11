@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Drag & Drop</title>
+  <link rel="stylesheet" href="/pages/dragdrop.css">
+</head>
+<body>
+  <h1>Vocabulary Drag & Drop</h1>
+
+  
+  <label for="language">Language:</label>
+  <select id="language">
+    <option value="en">English → Spanish</option>
+    <option value="es">Spanish → English</option>
+  </select>
+
+  <button id="reset">Reset Game</button>
+
+  <div id="game">
+    <div class="word-list" id="words"></div>
+    <div class="drop-zones" id="zones"></div>
+  </div>
+
+  <script src="/Games/dragdrop.js"></script>
+</body>
+</html>
