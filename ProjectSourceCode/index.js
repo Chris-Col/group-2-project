@@ -70,6 +70,22 @@ app.use('/pages', express.static(path.join(__dirname, 'src/views/pages')));
 // *****************************************************
 // <!-- Section 4 : API Routes -->
 // *****************************************************
+
+const auth = (req, res, next) => {
+  // Unauthenticated routes
+  if (req.path === '/login' || req.path === '/register') {
+    next();
+    return;
+  }
+
+  if (!req.session.user) {
+    // Default to login page.
+    return res.redirect('/login');
+  }
+  next();
+};
+app.use(auth);
+
 app.get('/', (req, res) => {
   return res.redirect('/login');
 });
@@ -109,8 +125,8 @@ app.post('/login', async (req, res) => {
     else{
     req.session.user = username;
     req.session.save(() => {
-        console.log('Session saved. Redirecting to /games');
-        res.redirect('/games');
+        console.log('Session saved. Redirecting to /welcome');
+        res.redirect('/welcome');
     })};
     app.get('/games', (req, res) => {
       res.render('pages/games'); 
