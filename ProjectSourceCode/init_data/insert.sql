@@ -1,7 +1,7 @@
-INSERT INTO Users (username, pw, created_at)
+INSERT INTO users (username, email, pw, created_at)
 VALUES (
   'hunorko',
-  -- crypt('securepassword', gen_salt('bf')),
+  'hunorko@example.com',   -- added email column
   'huko2764',
   CURRENT_TIMESTAMP
 );
