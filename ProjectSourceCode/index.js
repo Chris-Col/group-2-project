@@ -157,8 +157,8 @@ app.get('/welcome', (req, res) => {
 
 // Registration API
 app.post('/register', async (req, res) => {
-  const { username, email, password } = req.body;
-  if (!username || !email || !password) {
+  const { username, password } = req.body;
+  if (!username || !password) {
     return res.status(400).json({ message: 'Missing fields' });
   }
   if (process.env.NODE_ENV === 'test') {
@@ -168,8 +168,8 @@ app.post('/register', async (req, res) => {
   try {
     const hash = await bcrypt.hash(password, 10);
     await db.none(
-      'INSERT INTO users(username, email, pw) VALUES($1, $2, $3)',
-      [username, email, hash]
+      'INSERT INTO users(username, pw) VALUES($1, $2)',
+      [username, hash]
     );
     return res.status(200).json({ message: 'User registered' });
   } catch (err) {
