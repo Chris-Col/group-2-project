@@ -29,3 +29,12 @@ Sign up for presentation time:
     Dont talk about what we individually did
     Make a screen record going through the code before presentation
     
+For Next Week,
+    Create new leader board page
+    Need a page that shows peoples scores
+    Need a user page that shows individual scores
+    Nav bar on the matching game
+    Update database to hold points
+    Creating up to three more games
+    Updating front end
+    
