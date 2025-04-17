@@ -2,26 +2,34 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Drag & Drop</title>
+  <title>Drag‑and‑Drop Vocabulary</title>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/pages/dragdrop.css">
 </head>
 <body>
-  <h1>Vocabulary Drag & Drop</h1>
+  <!-- Back button -->
+  <a href="/games" class="back-btn">← Back to Games</a>
 
-  
-  <label for="language">Language:</label>
-  <select id="language">
-    <option value="en">English → Spanish</option>
-    <option value="es">Spanish → English</option>
-  </select>
+  <!-- notification bar -->
+  <div id="message" class="message" hidden></div>
 
-  <button id="reset">Reset Game</button>
+  <h1>Drag &amp; Drop Vocabulary</h1>
+
+  <div class="controls">
+    <label for="source">From:</label>
+    <select id="source"></select>
+
+    <label for="target">To:</label>
+    <select id="target"></select>
+
+    <button id="reset">🔄 New round</button>
+  </div>
 
   <div id="game">
     <div class="word-list" id="words"></div>
     <div class="drop-zones" id="zones"></div>
   </div>
 
-  <script src="/Games/dragdrop.js"></script>
+  <script src="/pages/dragdrop.js"></script>
 </body>
 </html>
