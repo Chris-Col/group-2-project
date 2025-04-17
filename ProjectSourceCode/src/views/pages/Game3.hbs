@@ -4,11 +4,21 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Game 3</title>
-  <link rel="stylesheet" href="/styles.css">
+  <link rel="stylesheet" href="/Games/styles.css">
 </head>
 <body>
   <div class="container">
     <h1>Game 3</h1>
+    <div class="card">
+            <p id="translated-word">Click Start to begin!</p>
+            <input type="text" id="user-input" placeholder="Enter English word" disabled />
+            <button id="submit-btn" disabled>Submit</button>
+            <p id="feedback"></p>
+            <p id="score">Score: 0</p>
+            <button id="next-btn" disabled>Next</button>
+            <button id="start-btn">Start Game</button>
+        </div>
   </div>
+  <script src="/Games/flashcards.js" defer></script>
 </body>
 </html>
