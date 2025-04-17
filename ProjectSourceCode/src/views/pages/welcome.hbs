@@ -1,15 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Logout Successful</title>
-  <link rel="stylesheet" href="/styles.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Welcome to Speakeasy!</title>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
+
+  <header>
+    <h1>Welcome to Speakeasy, {{username}}! 🌍</h1>
+    <p>Learn languages the fun way with interactive games!</p>
+  </header>
+
   <div class="container">
-    <h1>Welcome to SpeakEasy</h1>
-    <h1>Get started by playing some games!</h1>
+    <h2>How to Get Started:</h2>
+    <ol>
+      <li>Pick a language you want to practice.</li>
+      <li>Scroll through exciting games like Word Match, Flashcards, or Finish the Sentence.</li>
+      <li>Read the description of the game to see what it's about.</li>
+      <li>Hit the <strong>“Play Now”</strong> button to dive in.</li>
+      <li>Follow the instructions, earn points, and hit a new high score!</li>
+    </ol>
+
+    <div class="button-container">
+      <button onclick="location.href='/games'">Start Exploring Games</button>
+    </div>
   </div>
 </body>
 </html>

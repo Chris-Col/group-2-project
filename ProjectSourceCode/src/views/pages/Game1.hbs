@@ -4,11 +4,24 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Game 1</title>
-  <link rel="stylesheet" href="/styles.css">
+  <link rel="stylesheet" href="/pages/multipleChoice.css">
 </head>
 <body>
   <div class="container">
-    <h1>Game 1</h1>
+<div class="game-wrapper">
+  <div class="container">
+    <h1>Multiple Choice</h1>
+    <div class="card">
+      <p id="current-language" style="margin-bottom: 20px;"></p>
+      <p id="translated-word">Click Start to begin!</p>
+      <div id="choices"></div>
+      <p id="feedback"></p>
+      <p id="score">Score: 0</p>
+      <button id="next-btn" disabled>Next</button>
+      <button id="start-btn">Start Game</button>
+    </div>
   </div>
+</div>
+  <script src="/pages/multipleChoice.js" defer></script>
 </body>
 </html>
