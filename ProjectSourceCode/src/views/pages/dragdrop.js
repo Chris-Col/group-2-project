@@ -1,187 +1,190 @@
-/* dragdrop.js */
+/* dragdrop.js – round‑based vocabulary game with
+   difficulty levels + live scoreboard */
+
 /* global fetch */
+document.addEventListener('DOMContentLoaded', () => {
 
-/* ------------------------------------------------------------------ */
-/* 1. Static data / language map                                      */
-/* ------------------------------------------------------------------ */
-const ISO_LANGS = {
-  en: 'English',
-  es: 'Spanish',
-  fr: 'French',
-  de: 'German',
-  it: 'Italian',
-  ja: 'Japanese',
-  zh: 'Chinese'
-};
+  /*--------------------------------------------------*/
+  /* 0.  Static resources                             */
+  /*--------------------------------------------------*/
+  const ISO_LANGS = {
+    en:'English', es:'Spanish', fr:'French',
+    de:'German',  it:'Italian', ja:'Japanese', zh:'Chinese'
+  };
 
-const SEED_WORDS = ['hello', 'goodbye', 'please', 'thank you'];
+  const WORD_BANK = {
+    easy  : ['hello','goodbye','please','thank you','yes','no','friend','family'],
+    medium: ['important','beautiful','difficult','mountain','language','journey'],
+    hard  : ['philosophy','architecture','enthusiasm','responsibility','magnificent']
+  };
 
-/* ------------------------------------------------------------------ */
-/* 2. DOM references                                                  */
-/* ------------------------------------------------------------------ */
-const srcSelect = document.getElementById('source');
-const tgtSelect = document.getElementById('target');
-const wordsDiv  = document.getElementById('words');
-const zonesDiv  = document.getElementById('zones');
-const resetBtn  = document.getElementById('reset');
-const msgDiv    = document.getElementById('message');
+  /*--------------------------------------------------*/
+  /* 1.  DOM handles                                  */
+  /*--------------------------------------------------*/
+  const srcSel      = document.getElementById('source');
+  const tgtSel      = document.getElementById('target');
+  const diffSel     = document.getElementById('difficulty');
+  const customIn    = document.getElementById('custom');
 
-resetBtn.addEventListener('click', initGame);
+  const wordsDiv    = document.getElementById('words');
+  const zonesDiv    = document.getElementById('zones');
+  const toastBox    = document.getElementById('message');
 
-/* ------------------------------------------------------------------ */
-/* 3. Populate language dropdowns                                     */
-/* ------------------------------------------------------------------ */
-Object.entries(ISO_LANGS).forEach(([code, label]) => {
-  for (const sel of [srcSelect, tgtSelect]) {
-    const opt = document.createElement('option');
-    opt.value = code;
-    opt.textContent = label;
-    sel.appendChild(opt);
-  }
-});
+  /* scoreboard spans */
+  const solvedSpan   = document.getElementById('solved');
+  const totalSpan    = document.getElementById('total');
+  const attemptsSpan = document.getElementById('attempts');
+  const accuracySpan = document.getElementById('accuracy');
 
-// sensible defaults
-srcSelect.value = 'en';
-tgtSelect.value = 'es';
+  document.getElementById('reset').addEventListener('click',   newRound);
+  [srcSel, tgtSel, diffSel].forEach(sel => sel.addEventListener('change', newRound));
 
-// re‑run whenever either select changes
-srcSelect.addEventListener('change', initGame);
-tgtSelect.addEventListener('change', initGame);
+  /*--------------------------------------------------*/
+  /* 2.  Utilities                                   */
+  /*--------------------------------------------------*/
+  const shuffle = a => { for (let i=a.length;i--;) {
+      const j = Math.floor(Math.random()*(i+1)); [a[i],a[j]] = [a[j],a[i]];
+    } return a; };
 
-/* ------------------------------------------------------------------ */
-/* 4. Game state                                                      */
-/* ------------------------------------------------------------------ */
-let pairs = []; // will hold { src, tgt } objects
+  const toast = (txt, ms=2400) => {
+    toastBox.textContent = txt;
+    toastBox.hidden = false; toastBox.classList.add('show');
+    setTimeout(()=>{ toastBox.classList.remove('show');
+                     setTimeout(()=>toastBox.hidden=true, 320); }, ms);
+  };
 
-/* ------------------------------------------------------------------ */
-/* 5. Helpers                                                         */
-/* ------------------------------------------------------------------ */
-function shuffle(arr) {
-  for (let i = arr.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [arr[i], arr[j]] = [arr[j], arr[i]];
-  }
-  return arr;
-}
+  async function translateMany(wordsEn, target){
+    if (target === 'en') return [...wordsEn];
 
-// fetch translations from your backend endpoint
-async function translateMany(words, target) {
-  return Promise.all(
-    words.map(w =>
-      fetch(`/api/translate?q=${encodeURIComponent(w)}&target=${target}`)
-        .then(r => r.json())
-        .then(j => j.translated)
-    )
-  );
-}
-
-// replacement for alert()
-function showMessage(text, duration = 2000) {
-  msgDiv.textContent = text;
-  msgDiv.hidden = false;
-  msgDiv.classList.add('show');
-
-  setTimeout(() => {
-    msgDiv.classList.remove('show');
-    setTimeout(() => { msgDiv.hidden = true; }, 300);
-  }, duration);
-}
-
-/* ------------------------------------------------------------------ */
-/* 6. Core logic                                                      */
-/* ------------------------------------------------------------------ */
-async function initGame() {
-  const from = srcSelect.value;
-  const to   = tgtSelect.value;
-
-  if (from === to) {
-    showMessage('Please choose two different languages');
-    return;
+    const out = [];
+    for (const w of wordsEn){
+      try{
+        const r  = await fetch(`/api/translate?q=${encodeURIComponent(w)}&target=${target}`);
+        const js = await r.json();
+        out.push(js.translated || '');
+      }catch{ out.push(''); }
+    }
+    return out;
   }
 
-  // Determine which direction we need to translate
-  // 1) English → X
-  // 2) X → English
-  // 3) X → Y (neither is English)
-  let sourceWords, targetWords;
+  /*--------------------------------------------------*/
+  /* 3.  State                                       */
+  /*--------------------------------------------------*/
+  let PAIRS   = [];     // list of {src, tgt}
+  let solved  = 0;      // correct matches this round
+  let attempts= 0;      // total drops this round
 
-  if (from === 'en') {
-    sourceWords = SEED_WORDS;
-    targetWords = await translateMany(SEED_WORDS, to);
-  } else if (to === 'en') {
-    sourceWords = await translateMany(SEED_WORDS, from);
-    targetWords = SEED_WORDS;
-  } else {
-    // both are non-English
-    sourceWords = await translateMany(SEED_WORDS, from);
-    targetWords = await translateMany(SEED_WORDS, to);
-  }
-
-  // build our pairs array
-  pairs = sourceWords.map((w, i) => ({
-    src: w,
-    tgt: targetWords[i]
-  }));
-
-  renderRound();
-}
-
-function renderRound() {
-  // clear last round
-  wordsDiv.innerHTML = '';
-  zonesDiv.innerHTML = '';
-
-  // render draggable source words (shuffled)
-  shuffle([...pairs]).forEach((pair, idx) => {
-    const w = document.createElement('div');
-    w.className   = 'word';
-    w.textContent = pair.src;
-    w.draggable   = true;
-    w.dataset.idx = idx;
-
-    w.addEventListener('dragstart', e =>
-      e.dataTransfer.setData('text/plain', idx)
-    );
-
-    wordsDiv.appendChild(w);
-  });
-
-  // render drop zones (shuffled targets)
-  shuffle(pairs.map(p => p.tgt)).forEach(target => {
-    const z = document.createElement('div');
-    z.className   = 'zone';
-    z.textContent = target;
-
-    z.addEventListener('dragover', e => {
-      e.preventDefault();
-      z.classList.add('over');
+  /*--------------------------------------------------*/
+  /* 4.  Populate selects once                        */
+  /*--------------------------------------------------*/
+  (()=>{
+    Object.entries(ISO_LANGS).forEach(([code,label])=>{
+      [srcSel, tgtSel].forEach(sel=>{
+        sel.insertAdjacentHTML('beforeend', `<option value="${code}">${label}</option>`);
+      });
     });
-    z.addEventListener('dragleave', () => {
-      z.classList.remove('over');
+    tgtSel.value = 'en';        // default
+  })();
+
+  /*--------------------------------------------------*/
+  /* 5.  Launch first round                           */
+  /*--------------------------------------------------*/
+  newRound();
+
+  /*--------------------------------------------------*/
+  /* 6.  Round bootstrap                              */
+  /*--------------------------------------------------*/
+  async function newRound(){
+    if (srcSel.value === tgtSel.value){
+      toast('Choose two different languages 🙂'); return;
+    }
+
+    const custom = customIn.value
+        .split(',').map(s=>s.trim()).filter(Boolean).slice(0,12);
+
+    const seed   = custom.length ? custom : WORD_BANK[ diffSel.value || 'easy' ];
+
+    const [fromArr,toArr] = await Promise.all([
+      translateMany(seed, srcSel.value),
+      translateMany(seed, tgtSel.value)
+    ]);
+
+    if (fromArr.some(w=>!w) || toArr.some(w=>!w)){
+      toast('Translation failed – try again'); return;
+    }
+
+    PAIRS    = seed.map((_,i)=>({src:fromArr[i], tgt:toArr[i]}));
+    solved   = 0;
+    attempts = 0;
+    renderBoard();
+    updateScoreboard();         // push zeroes & totals
+  }
+
+  /*--------------------------------------------------*/
+  /* 7.  Render board                                 */
+  /*--------------------------------------------------*/
+  function renderBoard(){
+    wordsDiv.innerHTML = zonesDiv.innerHTML = '';
+
+    /* draggable words (source language) */
+    shuffle(PAIRS.map((_,i)=>i)).forEach(idx=>{
+      wordsDiv.insertAdjacentHTML('beforeend',
+        `<div class="word" draggable="true" data-idx="${idx}">${PAIRS[idx].src}</div>`);
     });
 
-    z.addEventListener('drop', e => {
-      e.preventDefault();
-      z.classList.remove('over');
-
-      const srcIdx  = e.dataTransfer.getData('text/plain');
-      const correct = pairs[srcIdx].tgt === target;
-
-      z.classList.add(correct ? 'correct' : 'wrong');
-      if (correct) {
-        const dragged = document.querySelector(`.word[data-idx='${srcIdx}']`);
-        dragged.style.opacity = 0.4;
-        dragged.draggable     = false;
-      } else {
-        setTimeout(() => z.classList.remove('wrong'), 500);
-      }
+    wordsDiv.querySelectorAll('.word').forEach(card=>{
+      card.addEventListener('dragstart', e=>{
+        e.dataTransfer.setData('text/plain', card.dataset.idx);
+      });
     });
 
-    zonesDiv.appendChild(z);
-  });
-}
+    /* drop zones (target language) */
+    shuffle(PAIRS.map(p=>p.tgt)).forEach(txt=>{
+      const z=document.createElement('div');
+      z.className='zone'; z.textContent=txt;
 
-/* ------------------------------------------------------------------ */
-/* 7. Kick‑off                                                        */
-/* ------------------------------------------------------------------ */
-initGame();
+      z.addEventListener('dragover', e=>{e.preventDefault(); z.classList.add('over');});
+      z.addEventListener('dragleave', ()=> z.classList.remove('over'));
+
+      z.addEventListener('drop', e=>{
+        e.preventDefault(); z.classList.remove('over');
+        const idx = +e.dataTransfer.getData('text/plain');
+        const ok  = PAIRS[idx].tgt === txt;
+
+        z.classList.add(ok?'correct':'wrong');
+        attempts++;
+
+        if (ok){
+          solved++;
+          const w=document.querySelector(`.word[data-idx='${idx}']`);
+          w.style.opacity=.35; w.draggable=false;
+
+          /* allow the green flash, then remove zone */
+          setTimeout(()=> z.remove(), 550);
+
+          if (solved === PAIRS.length){ toast('✨ Round cleared! ✨'); }
+        }else{
+          setTimeout(()=> z.classList.remove('wrong'), 650);
+        }
+
+        updateScoreboard();
+      });
+
+      zonesDiv.appendChild(z);
+    });
+
+    /* total pairs into scoreboard */
+    totalSpan.textContent = PAIRS.length;
+  }
+
+  /*--------------------------------------------------*/
+  /* 8.  Scoreboard helper                            */
+  /*--------------------------------------------------*/
+  function updateScoreboard(){
+    solvedSpan.textContent   = solved;
+    attemptsSpan.textContent = attempts;
+    const acc = attempts ? Math.round((solved/attempts)*100) : 0;
+    accuracySpan.textContent = acc;
+  }
+
+}); // DOMContentLoaded

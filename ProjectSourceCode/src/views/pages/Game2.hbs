@@ -3,32 +3,75 @@
 <head>
   <meta charset="UTF-8">
   <title>Drag‑and‑Drop Vocabulary</title>
-  <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <!-- fonts + css -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/pages/dragdrop.css">
 </head>
 <body>
-  <!-- Back button -->
-  <a href="/games" class="back-btn">← Back to Games</a>
 
-  <!-- notification bar -->
+  <!-- back -->
+  <a class="back-btn" href="/games">← Games</a>
+
+  <h1>Drag &amp; Drop Vocabulary</h1>
+
+  <!-- toast -->
   <div id="message" class="message" hidden></div>
 
-  <h1>Drag &amp; Drop Vocabulary</h1>
+  <div class="wrapper">
 
-  <div class="controls">
-    <label for="source">From:</label>
-    <select id="source"></select>
+    <!-- instructions -->
+    <aside class="instructions">
+      <h2>How&nbsp;to&nbsp;Play</h2>
+      <ol>
+        <li>Select <strong>From</strong> &amp; <strong>To</strong> languages and <strong>difficulty</strong>.</li>
+        <li>(Optional) enter a custom comma‑separated word list.</li>
+        <li>Hit <em>New Round</em> 🔄 – then drag words (top) onto their translations (bottom).</li>
+        <li>Scoreboard tracks your accuracy – aim for 💯!</li>
+      </ol>
+    </aside>
 
-    <label for="target">To:</label>
-    <select id="target"></select>
+    <!-- interaction / game -->
+    <section class="interaction">
 
-    <button id="reset">🔄 New round</button>
-  </div>
+      <!-- custom list -->
+      <input id="custom" type="text"
+             placeholder="Optional: custom words, comma‑separated">
 
-  <div id="game">
-    <div class="word-list" id="words"></div>
-    <div class="drop-zones" id="zones"></div>
-  </div>
+      <!-- controls -->
+      <div class="controls">
+        <label for="source">From</label>
+        <select id="source"></select>
+
+        <label for="target">To</label>
+        <select id="target"></select>
+
+        <label for="difficulty">Difficulty</label>
+        <select id="difficulty">
+          <option value="easy">Easy 🌱</option>
+          <option value="medium">Medium 🪄</option>
+          <option value="hard">Hard 🐉</option>
+        </select>
+      </div>
+
+      <!-- SCOREBOARD -->
+      <div id="scoreboard" class="scoreboard">
+        <span id="solved">0</span>/<span id="total">0</span> correct
+        &bull; Attempts: <span id="attempts">0</span>
+        &bull; Accuracy: <span id="accuracy">0</span>%
+      </div>
+
+      <!-- board -->
+      <div id="game">
+        <div id="words" class="word-list"></div>
+        <div id="zones" class="drop-zones"></div>
+      </div>
+
+      <!-- new round -->
+      <button id="reset">🔄 New Round</button>
+    </section>
+
+  </div> <!-- /wrapper -->
 
   <script src="/pages/dragdrop.js"></script>
 </body>
