@@ -170,7 +170,9 @@ app.get('/Game5', (req, res) => {
 
 // Welcome
 app.get('/welcome', (req, res) => {
-  res.render('pages/welcome');
+  res.render('pages/welcome', {
+    username: req.session.user
+  });
 });
 
 // Registration API
@@ -189,7 +191,14 @@ app.post('/register', async (req, res) => {
       'INSERT INTO users(username, pw) VALUES($1, $2)',
       [username, hash]
     );
-    return res.status(200).json({ message: 'User registered' });
+
+    // Set session to auto-login
+    req.session.user = username;
+
+    // Redirect to /welcome
+    req.session.save(() => {
+      res.redirect('/welcome');
+    });
   } catch (err) {
     return res.status(400).json({ message: 'Registration failed' });
   }
