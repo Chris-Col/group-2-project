@@ -1,3 +1,4 @@
+
 document.addEventListener('DOMContentLoaded', () => {
     const words = ['apple', 'house', 'car', 'love', 'music', 'dog', 'cat', 'red', 'blue', 'bathroom', 'hand', 'bike'];
     let currentWord = '';

@@ -1,0 +1,97 @@
+/* Layout */
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background: red;
+    background: linear-gradient(to right, #e0f7fa, #ffffff);
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    text-align: center;
+    background-color: #ffffff;
+    padding: 40px 30px;
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    max-width: 500px;
+    width: 90%;
+}
+
+/* Headings */
+h1 {
+    font-size: 32px;
+    color: #2c3e50;
+    margin-bottom: 20px;
+}
+
+/* Flashcard Area */
+.card p {
+    font-size: 20px;
+    margin-bottom: 15px;
+    color: #34495e;
+}
+
+/* Inputs */
+input[type="text"] {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    font-size: 16px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    box-sizing: border-box;
+}
+
+/* Buttons */
+button {
+    padding: 12px 18px;
+    margin: 8px;
+    font-size: 16px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+#start-btn {
+    background-color: #27ae60;
+    color: white;
+}
+
+#submit-btn {
+    background-color: #3498db;
+    color: white;
+}
+
+#next-btn {
+    background-color: #9b59b6;
+    color: white;
+}
+
+button:hover:not(:disabled) {
+    transform: translateY(-2px);
+    opacity: 0.95;
+}
+
+button:disabled {
+    background-color: #bdc3c7;
+    cursor: not-allowed;
+}
+
+/* Score and feedback */
+#score {
+    font-size: 18px;
+    color: #2c3e50;
+    margin-top: 10px;
+}
+
+#feedback {
+    font-weight: bold;
+    font-size: 18px;
+    margin: 10px 0;
+}
