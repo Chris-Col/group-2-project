@@ -1,15 +1,107 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Logout Successful</title>
-  <link rel="stylesheet" href="/styles.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Welcome to Speakeasy!</title>
+  <link href="http s://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Nunito', sans-serif;
+      background: #e3f2fd;
+      color: #333;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background-color: #1e88e5;
+      color: white;
+      padding: 30px 20px;
+      text-align: center;
+      border-bottom: 5px solid #1565c0;
+    }
+
+    .container {
+      max-width: 850px;
+      margin: 40px auto;
+      background: white;
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    }
+
+    h1, h2 {
+      margin-top: 0;
+    }
+
+    h2 {
+      color: #1e88e5;
+    }
+
+    ol {
+      line-height: 1.7;
+      font-size: 18px;
+      padding-left: 20px;
+    }
+
+    .avatar {
+      display: block;
+      margin: 0 auto 30px;
+      width: 150px;
+      border-radius: 50%;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    }
+
+    button {
+      background-color: #1e88e5;
+      border: none;
+      padding: 12px 25px;
+      color: white;
+      font-size: 18px;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #1565c0;
+    }
+
+    .button-container {
+      text-align: center;
+      margin-top: 30px;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 40px;
+      color: #555;
+      font-size: 14px;
+    }
+  </style>
 </head>
 <body>
+
+  <header>
+    <h1>Welcome to Speakeasy! 🌍</h1>
+    <p>Learn languages the fun way with interactive games!</p>
+  </header>
+
   <div class="container">
-    <h1>Welcome to SpeakEasy</h1>
-    <h1>Get started by playing some games!</h1>
+    <h2>How to Get Started:</h2>
+    <ol>
+      <li>Pick a language you want to practice.</li>
+      <li>Scroll through exciting games like Word Match, Flashcards, or Finish the Sentence.</li>
+      <li>Read the description of the game to see what it's about.</li>
+      <li>Hit the <strong>“Start Game”</strong> button to dive in.</li>
+      <li>Follow the instructions, earn points, and hit a new high score!</li>
+    </ol>
+
+    <div class="button-container">
+      <button onclick="location.href='/games'">Start Exploring Games</button>
+    </div>
   </div>
 </body>
 </html>
