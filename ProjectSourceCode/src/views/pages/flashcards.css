@@ -1,15 +1,11 @@
 /* Layout */
 body {
-    font-family: 'Segoe UI', sans-serif;
-    background: red;
-    background: linear-gradient(to right, #e0f7fa, #ffffff);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #f4f7fa;
     margin: 0;
     padding: 0;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }
+
 
 .container {
     text-align: center;

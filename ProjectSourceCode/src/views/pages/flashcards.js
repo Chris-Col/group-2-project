@@ -1,6 +1,37 @@
+function getTargetLanguage() {
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get('lang') || 'es'; // default to Spanish
+  }
+  
+  function getLanguageLabel(code) {
+    const map = {
+        es: 'Spanish 🇪🇸',
+        fr: 'French 🇫🇷',
+        de: 'German 🇩🇪',
+        ja: 'Japanese 🇯🇵',
+        it: 'Italian 🇮🇹',
+    };
+    return map[code] || `Language: ${code}`;
+}
 
 document.addEventListener('DOMContentLoaded', () => {
-    const words = ['apple', 'house', 'car', 'love', 'music', 'dog', 'cat', 'red', 'blue', 'bathroom', 'hand', 'bike'];
+    const vocab = {
+        animals: ['cat', 'dog', 'horse', 'cow', 'lion', 'tiger', 'monkey', 'bear', 'bird'],
+        colors: ['red', 'blue', 'green', 'yellow', 'purple', 'orange', 'black', 'white'],
+        food: ['apple', 'banana', 'bread', 'cheese', 'egg', 'rice', 'meat', 'fish'],
+        household: ['table', 'chair', 'bed', 'window', 'door', 'lamp', 'mirror', 'sofa'],
+        verbs: ['run', 'walk', 'eat', 'drink', 'sleep', 'read', 'write', 'jump', 'swim'],
+        numbers: ['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten']
+      };
+      const langCode = getTargetLanguage();
+        const langLabel = getLanguageLabel(langCode);
+        const langDisplay = document.getElementById('current-language');
+        if (langDisplay) {
+            langDisplay.textContent = `Translating to: ${langLabel}`;
+        }
+
+      
+      const words = Object.values(vocab).flat(); // combines all categories into one array
     let currentWord = '';
     let translatedWord = '';
     let score = 0;
@@ -55,7 +86,9 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         currentWord = remainingWords[Math.floor(Math.random() * remainingWords.length)];
-        translatedWord = await translateText(currentWord, 'en', 'es');
+        const targetLang = getTargetLanguage();
+        translatedWord = await translateText(currentWord, 'en', targetLang);
+
         translatedWordEl.textContent = `Translate this word: ${translatedWord}`;
         submitBtn.disabled = false;
         userInput.disabled = false;
