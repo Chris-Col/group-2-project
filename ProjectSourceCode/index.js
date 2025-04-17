@@ -43,7 +43,7 @@ app.set('view engine', 'hbs');
 app.set('views', path.join(__dirname, 'src/views'));
 
 app.use(bodyParser.json()); // specify the usage of JSON for parsing request body.
-app.use(express.static('public'));
+app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.urlencoded({extended: true,}));
 
 // test your database
@@ -105,8 +105,6 @@ app.get('/login', (req, res) => {
 });
 
 
-
-
 app.get('/login', (req, res) => {
   res.render('pages/login');
   res.status(200).render('pages/login');
@@ -137,16 +135,11 @@ app.post('/login', async (req, res) => {
         console.log('Session saved. Redirecting to /welcome');
         res.redirect('/welcome');
     })};
-    app.get('/games', (req, res) => {
-      res.render('pages/games'); 
-      });
-      app.get('/welcome', (req, res) => {
-        res.render('pages/welcome'); 
-        });
-} catch (error) {
+
+  } catch (error) {
     console.error('Login error:', error);
     res.status(500).send('Internal Server Error');
-}
+  }
 });
 
 app.get('/games', (req, res) => {
@@ -199,6 +192,32 @@ app.post('/register', async (req, res) => {
     return res.status(200).json({ message: 'User registered' });
   } catch (err) {
     return res.status(400).json({ message: 'Registration failed' });
+  }
+});
+
+// Profile page
+app.get('/profile', async (req, res) => {
+  try {
+    const username = req.session.user;
+    if (!username) return res.redirect('/login');
+
+    const result = await db.oneOrNone(
+      'SELECT user_id, username, created_at FROM users WHERE username = $1',
+      [username]
+    );
+
+    if (!result) return res.status(404).send('User not found');
+
+    res.render('pages/profile', {
+      username: result.username,
+      created_at: result.created_at.toDateString(),
+      // profile_picture: `/images/profile_pictures/${result.user_id}.jpg`
+      profile_picture: `/images/profile_picture.jpg`
+    });
+
+  } catch (error) {
+    console.error('Profile route error:', error);
+    res.status(500).send('Server error loading profile');
   }
 });
 
