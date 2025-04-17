@@ -33,3 +33,5 @@ async function translateText(input, sourceLang, targetLang) {
 
 // Example usage:
 translateText('We can translate multiple sentences. This is another sentence to demonstrate this.', 'en', 'es'); // Translates from English to French
+
+module.exports = translateText;

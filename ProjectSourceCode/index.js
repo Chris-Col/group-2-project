@@ -12,7 +12,7 @@ const bodyParser = require('body-parser');
 const session = require('express-session'); // To set the session object. To store or access session data, use the `req.session`, which is (generally) serialized as JSON by the store.
 const bcrypt = require('bcryptjs'); //  To hash passwords
 const axios = require('axios'); // To make HTTP requests from our server. We'll learn more about it in Part C.
-
+const translateText = require('./translate');
 // *****************************************************
 // <!-- Section 2 : Connect to DB -->
 // *****************************************************
@@ -43,7 +43,7 @@ app.set('view engine', 'hbs');
 app.set('views', path.join(__dirname, 'src/views'));
 
 app.use(bodyParser.json()); // specify the usage of JSON for parsing request body.
-app.use(express.static('public'));
+app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.urlencoded({extended: true,}));
 
 // test your database
@@ -63,11 +63,6 @@ app.use(
     saveUninitialized: false,
   })
 );
-
-app.use((req, res, next) => {
-  res.locals.username = req.session.user ? req.session.user.username : null;
-  next();
-});
 
 // Serve static files from the Games folder at /Games
 app.use('/Games', express.static(path.join(__dirname, 'src/views/pages')));
@@ -91,6 +86,12 @@ const auth = (req, res, next) => {
 };
 app.use(auth);
 
+//Authentication middleware
+app.use((req, res, next) => {
+  res.locals.user = req.session.user; // 'user' will now be accessible in all templates
+  next();
+});
+
 app.get('/', (req, res) => {
   return res.redirect('/login');
 });
@@ -102,6 +103,7 @@ app.get('/register', (req, res) => {
 app.get('/login', (req, res) => {
   return res.status(200).render('pages/login');
 });
+
 
 app.get('/login', (req, res) => {
   res.render('pages/login');
@@ -133,16 +135,11 @@ app.post('/login', async (req, res) => {
         console.log('Session saved. Redirecting to /welcome');
         res.redirect('/welcome');
     })};
-    app.get('/games', (req, res) => {
-      res.render('pages/games'); 
-      });
-      app.get('/welcome', (req, res) => {
-        res.render('pages/welcome'); 
-        });
-} catch (error) {
+
+  } catch (error) {
     console.error('Login error:', error);
     res.status(500).send('Internal Server Error');
-}
+  }
 });
 
 app.get('/games', (req, res) => {
@@ -156,7 +153,7 @@ app.get('/Game1', (req, res) => {
 });
 
 app.get('/Game2', (req, res) => {
-  res.render('pages/dragdrop', { layout: false }); // Have we created dragdrop yet
+  res.render('pages/Game2', { layout: false }); // Have we created dragdrop yet
 });
 
 app.get('/Game3', (req, res) => {
@@ -171,9 +168,11 @@ app.get('/Game5', (req, res) => {
   res.render('pages/Game5');
 });
 
-// Welcome JSON
+// Welcome
 app.get('/welcome', (req, res) => {
-  res.render('pages/welcome');
+  res.render('pages/welcome', {
+    username: req.session.user
+  });
 });
 
 // Registration API
@@ -192,9 +191,42 @@ app.post('/register', async (req, res) => {
       'INSERT INTO users(username, pw) VALUES($1, $2)',
       [username, hash]
     );
-    return res.status(200).json({ message: 'User registered' });
+
+    // Set session to auto-login
+    req.session.user = username;
+
+    // Redirect to /welcome
+    req.session.save(() => {
+      res.redirect('/welcome');
+    });
   } catch (err) {
     return res.status(400).json({ message: 'Registration failed' });
+  }
+});
+
+// Profile page
+app.get('/profile', async (req, res) => {
+  try {
+    const username = req.session.user;
+    if (!username) return res.redirect('/login');
+
+    const result = await db.oneOrNone(
+      'SELECT user_id, username, created_at FROM users WHERE username = $1',
+      [username]
+    );
+
+    if (!result) return res.status(404).send('User not found');
+
+    res.render('pages/profile', {
+      username: result.username,
+      created_at: result.created_at.toDateString(),
+      // profile_picture: `/images/profile_pictures/${result.user_id}.jpg`
+      profile_picture: `/images/profile_picture.jpg`
+    });
+
+  } catch (error) {
+    console.error('Profile route error:', error);
+    res.status(500).send('Server error loading profile');
   }
 });
 
@@ -209,6 +241,16 @@ app.get('/logout', (req, res) => {
   });
 });
 
+app.get('/api/translate', async (req, res) => {
+  const { q, source, target } = req.query;
+  try {
+    const translated = await translateText(q, source, target);
+    res.json({ translated });
+  } catch (err) {
+    console.error('Translation error:', err);
+    res.status(500).json({ error: 'Translation failed' });
+  }
+});
 
 // *****************************************************
 // <!-- Section 5 : Server Start & Export -->

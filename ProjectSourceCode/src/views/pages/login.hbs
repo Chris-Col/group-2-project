@@ -11,66 +11,7 @@
   <!-- Font Awesome (replace YOUR_KIT_CODE with real one) -->
   <script src="https://kit.fontawesome.com/YOUR_KIT_CODE.js" crossorigin="anonymous"></script>
 
-  <style>
-    .login-row {
-      height: 500px;
-    }
-
-    body {
-      font-family: 'Nunito', sans-serif;
-      background: #e3f2fd;
-      color: #333;
-      margin: 0;
-      padding: 0;
-    }
-
-    header {
-      background-color: #1e88e5;
-      color: white;
-      padding: 30px 20px;
-      text-align: center;
-      border-bottom: 5px solid #1565c0;
-    }
-
-    .container {
-      max-width: 850px;
-      margin: 40px auto;
-      background: white;
-      padding: 40px;
-      border-radius: 20px;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-    }
-
-    button {
-      background-color: #1e88e5;
-      border: none;
-      padding: 12px 25px;
-      color: white;
-      font-size: 18px;
-      border-radius: 12px;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-    }
-
-    button:hover {
-      background-color: #1565c0;
-    }
-
-    .button-container {
-      text-align: center;
-      margin-top: 30px;
-    }
-
-    footer {
-      text-align: center;
-      margin-top: 40px;
-      color: #555;
-      font-size: 14px;
-    }
-  </style>
-
   {{> message}}
-  
 </head>
 <body>
 
@@ -78,7 +19,7 @@
     <div class="col">
       <div class="row login-row justify-content-center align-items-center">
         <div class="text-center">
-          <h1>Login</h1>
+          <h2>Login</h2>
 
           <form action="/login" method="POST">
             <label for="username">Username:</label>

@@ -19,3 +19,13 @@ Login/Registration/Game should be done within the following week (expected)
 Need to work on communication and planning. Suggestion (TA) should really work together and sit down to make sure no one accidentally pushes anything to main by accident. 
 Suggestion (TA): still a lot of git issues that not everyone is familiar with. Should sit down together and review these just in case. 
 Liam was able to push to main and everyone was able to merge into their local. 
+
+4/17
+
+Sign up for presentation time:
+    10 minutes per presentation
+    5 minutes for questions
+    Dont show any code
+    Dont talk about what we individually did
+    Make a screen record going through the code before presentation
+    
