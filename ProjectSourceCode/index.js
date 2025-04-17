@@ -200,6 +200,7 @@ app.post('/register', async (req, res) => {
       res.redirect('/welcome');
     });
   } catch (err) {
+    console.log(err);
     return res.status(400).json({ message: 'Registration failed' });
   }
 });
