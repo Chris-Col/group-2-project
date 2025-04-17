@@ -14,9 +14,15 @@
 
       <div class="collapse navbar-collapse" id="navbar-collapse">
         <ul class="navbar-nav me-auto">
-          <li class="nav-item">
-            <a class="nav-link" href="/register">Register</a>
-          </li>
+          {{#if user}}
+            <li class="nav-item">
+              <a class="nav-link" href="/profile">Profile</a>
+            </li>
+          {{else}}
+            <li class="nav-item">
+              <a class="nav-link" href="/register">Register</a>
+            </li>
+          {{/if}}
           <li class="nav-item">
             <a class="nav-link" href="/welcome">Welcome</a>
           </li>

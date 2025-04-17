@@ -86,6 +86,12 @@ const auth = (req, res, next) => {
 };
 app.use(auth);
 
+//Authentication middleware
+app.use((req, res, next) => {
+  res.locals.user = req.session.user; // 'user' will now be accessible in all templates
+  next();
+});
+
 app.get('/', (req, res) => {
   return res.redirect('/login');
 });
@@ -97,6 +103,9 @@ app.get('/register', (req, res) => {
 app.get('/login', (req, res) => {
   return res.status(200).render('pages/login');
 });
+
+
+
 
 app.get('/login', (req, res) => {
   res.render('pages/login');
@@ -166,7 +175,7 @@ app.get('/Game5', (req, res) => {
   res.render('pages/Game5');
 });
 
-// Welcome JSON
+// Welcome
 app.get('/welcome', (req, res) => {
   res.render('pages/welcome');
 });
