@@ -8,8 +8,11 @@
 </head>
 <body>
   <div class="container">
+    <div class="game-wrapper">
+  <div class="container">
     <h1>Flashcards</h1>
     <div class="card">
+              <p id="current-language" style="margin-bottom: 20px;"></p>
             <p id="translated-word">Click Start to begin!</p>
             <input type="text" id="user-input" placeholder="Enter English word" disabled />
             <button id="submit-btn" disabled>Submit</button>
@@ -19,6 +22,8 @@
             <button id="start-btn">Start Game</button>
         </div>
   </div>
+    </div>
+
   <script src="/pages/flashcards.js" defer></script>
 </body>
 </html>
