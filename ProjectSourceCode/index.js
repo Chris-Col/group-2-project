@@ -65,7 +65,7 @@ app.use(
 );
 
 // Serve static files from the Games folder at /Games
-app.use('/Games', express.static(path.join(__dirname, 'Games')));
+app.use('/Games', express.static(path.join(__dirname, 'src/views/pages')));
 app.use('/pages', express.static(path.join(__dirname, 'src/views/pages')));
 // *****************************************************
 // <!-- Section 4 : API Routes -->
@@ -147,23 +147,23 @@ app.get('/games', (req, res) => {
 });
 
 app.get('/Game1', (req, res) => {
-  res.render('partials/Game1');
+  res.render('pages/Game1');
 });
 
 app.get('/Game2', (req, res) => {
-  res.render('pages/dragdrop', { layout: false });
+  res.render('pages/dragdrop', { layout: false }); // Have we created dragdrop yet
 });
 
 app.get('/Game3', (req, res) => {
-  res.render('partials/Game3');
+  res.render('pages/Game3');
 });
 
 app.get('/Game4', (req, res) => {
-  res.render('partials/Game4');
+  res.render('pages/Game4');
 });
 
 app.get('/Game5', (req, res) => {
-  res.render('partials/Game5');
+  res.render('pages/Game5');
 });
 
 // Welcome JSON
