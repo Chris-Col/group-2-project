@@ -12,7 +12,7 @@ const bodyParser = require('body-parser');
 const session = require('express-session'); // To set the session object. To store or access session data, use the `req.session`, which is (generally) serialized as JSON by the store.
 const bcrypt = require('bcryptjs'); //  To hash passwords
 const axios = require('axios'); // To make HTTP requests from our server. We'll learn more about it in Part C.
-
+const translateText = require('./translate');
 // *****************************************************
 // <!-- Section 2 : Connect to DB -->
 // *****************************************************
@@ -153,7 +153,7 @@ app.get('/Game1', (req, res) => {
 });
 
 app.get('/Game2', (req, res) => {
-  res.render('pages/dragdrop', { layout: false }); // Have we created dragdrop yet
+  res.render('pages/Game2', { layout: false }); // Have we created dragdrop yet
 });
 
 app.get('/Game3', (req, res) => {
@@ -241,6 +241,16 @@ app.get('/logout', (req, res) => {
   });
 });
 
+app.get('/api/translate', async (req, res) => {
+  const { q, source, target } = req.query;
+  try {
+    const translated = await translateText(q, source, target);
+    res.json({ translated });
+  } catch (err) {
+    console.error('Translation error:', err);
+    res.status(500).json({ error: 'Translation failed' });
+  }
+});
 
 // *****************************************************
 // <!-- Section 5 : Server Start & Export -->

@@ -1,132 +1,220 @@
-/* Center the game area */
+/* dragdrop.css */
+
+/* 1. Root Variables: Palette & Transitions */
+:root {
+  --color-primary: #3E9F85;          /* Anemo Teal */
+  --color-primary-dark: #356F6E;     /* Darker Teal */
+  --color-secondary: #E8DCBF;        /* Ivory Parchment */
+  --color-accent: #A38D56;           /* Regal Gold */
+  --color-navy: #3B3E86;             /* Deep Night */
+  --color-aqua: #9CBFD1;             /* Soft Aqua */
+  --transition: 0.3s ease-out;
+}
+
+/* 2. Import Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;600&family=Cinzel:wght@700&display=swap');
+
+/* 3. Global & Background */
 body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;       /* horizontal centering */
-    justify-content: center;   /* vertical centering */
-    background: linear-gradient(135deg, #e0f7fa 0%, #e1bee7 100%);
-  }
-  
-  h1 {
-    margin-bottom: 1rem;
-    color: #333;
-  }
-  
-  /* Game container */
-  #game {
-    background: white;
-    padding: 2rem;
-    border-radius: 12px;
-    box-shadow: 0 4px 16px rgba(0,0,0,0.2);
-    max-width: 600px;
-    width: 90%;
-    /* Remove margin, since body centering handles it */
-  }
-  
-  /* Flex layout for words and zones */
-  .word-list, .drop-zones {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
-    justify-content: center;
-    margin: 1rem 0;
-  }
-  
-  /* Draggable words */
-  .word {
-    background: #e1ecf4;
-    color: #0366d6;
-    padding: 0.75rem 1rem;
-    border-radius: 4px;
-    cursor: grab;
-    user-select: none;
-    transition: transform 0.1s;
-  }
-  
-  .word:active {
-    transform: scale(0.95);
-  }
-  
-  /* Drop zones */
-  .zone {
-    background: #f1f1f1;
-    color: #555;
-    padding: 0.75rem 1rem;
-    border: 2px dashed #ccc;
-    border-radius: 4px;
-    min-width: 100px;
-    text-align: center;
-    transition: background 0.2s, border-color 0.2s;
-  }
-  
-  .zone.over {
-    border-color: #888;
-    background: #e9ecef;
-  }
-  
-  .zone.correct {
-    border-color: #28a745;
-    background: #d4edda;
-    color: #155724;
-  }
-  
-  .zone.wrong {
-    border-color: #dc3545;
-    background: #f8d7da;
-    color: #721c24;
-  }
+  font-family: 'Noto Sans', sans-serif;
+  margin: 0; padding: 0;
+  min-height: 100vh;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  background:
+    linear-gradient(135deg, rgba(62,159,133,0.6), rgba(232,220,191,0.6)),
+    url('/assets/fantasy-bg.jpg') center/cover no-repeat;
+  background-blend-mode: overlay;
+  position: relative;
+}
 
-  .word, .zone {
-    opacity: 0;
-    animation: fadeIn 0.3s forwards;
-  }
-  
-  @keyframes fadeIn {
-    to { opacity: 1; }
-  }
+/* 4. Page Title */
+h1 {
+  font-family: 'Cinzel', serif;
+  color: #fff;
+  margin: 2rem 0 1rem;
+  font-size: 2.5rem;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.4);
+}
 
-  select, button {
-    padding: 0.5rem 1rem;
-    margin: 0.5rem;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    background: white;
-    cursor: pointer;
-  }
-  
-  button:hover {
-    background: #f1f1f1;
-  }
+/* 5. Back Button */
+.back-btn {
+  position: absolute; top: 1rem; left: 1rem;
+  background: rgba(255,255,255,0.85);
+  padding: 0.5rem 1rem; border-radius: 999px;
+  color: var(--color-primary-dark);
+  font-weight: 600; text-decoration: none;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  transition: background var(--transition), transform var(--transition);
+}
+.back-btn:hover {
+  background: rgba(255,255,255,1);
+  transform: translateX(-2px);
+}
 
-  /* Apply a full‑screen gradient background */
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background: linear-gradient(135deg, #e0f7fa 0%, #e1bee7 100%);
-  }
-  
-  /* Keep the card styling */
-  #game {
-    background: white;
-    padding: 2rem;
-    border-radius: 12px;
-    box-shadow: 0 4px 16px rgba(0,0,0,0.2);
-    max-width: 600px;
-    width: 90%;
-    margin: 2rem 0;
-  }
-  
-  /* Tweak the heading color */
-  h1 {
-    color: #333;
-    margin-top: 2rem;
-  }
+/* 6. Controls (Language Select + Reset) */
+.controls {
+  display: flex; gap: 1rem; align-items: center;
+  margin-bottom: 1.5rem;
+}
+/* Base select styling */
+.controls select {
+  font-family: 'Noto Sans', sans-serif;
+  font-size: 1rem;
+  padding: 0.8rem 1.4rem;
+  border-radius: 999px;
+  border: 1px solid #ccc;
+  background: var(--color-secondary);
+  cursor: pointer;
+  transition: background var(--transition), box-shadow var(--transition);
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+/* Preferred language (source) styling */
+.controls select#source {
+  background: var(--color-primary);
+  color: #fff;
+  border-color: var(--color-primary-dark);
+}
+/* Translated language (target) styling */
+.controls select#target {
+  background: var(--color-aqua);
+  color: var(--color-navy);
+  border-color: var(--color-navy);
+}
+.controls select:hover {
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+/* Reset button styling */
+#reset {
+  background: var(--color-primary);
+  color: #fff; border: none; font-size: 1rem;
+  padding: 0.8rem 1.4rem;
+  border-radius: 999px;
+  transition: background var(--transition), box-shadow var(--transition);
+}
+#reset:hover {
+  background: var(--color-primary-dark);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+/* 7. Game Container (Glass‑morphic Parchment Panel) */
+#game {
+  background: rgba(232,220,191,0.9);
+  backdrop-filter: blur(8px);
+  border: 2px solid var(--color-accent);
+  border-radius: 16px;
+  box-shadow: 0 16px 32px rgba(0,0,0,0.2);
+  padding: 2.5rem;
+  max-width: 640px; width: 90%;
+  margin: 2rem 0;
+  position: relative;
+}
+/* Decorative corner ornaments (requires your SVG assets in /assets) */
+#game::before,
+#game::after {
+  content: '';
+  position: absolute;
+  width: 40px; height: 40px;
+  background: url('/assets/ornament-corner.svg') no-repeat center/contain;
+}
+#game::before { top: -10px; left: -10px; transform: rotate(180deg); }
+#game::after  { bottom: -10px; right: -10px; }
+
+/* 8. Word List & Drop Zones Layout */
+.word-list,
+.drop-zones {
+  display: flex; flex-wrap: wrap;
+  gap: 1rem; justify-content: center;
+  margin: 1.5rem 0;
+}
+
+/* 9. Draggable Words (“Magic Cards”) */
+.word {
+  background: var(--color-secondary);
+  color: var(--color-navy);
+  font-weight: 600;
+  padding: 1rem 1.5rem;
+  border: 2px solid var(--color-accent);
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  cursor: grab; user-select: none;
+  transition:
+    transform var(--transition),
+    box-shadow var(--transition),
+    background var(--transition),
+    color var(--transition);
+}
+.word:hover {
+  background: var(--color-accent);
+  color: #fff;
+  transform: translateY(-4px) scale(1.03);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+}
+.word:active {
+  transform: scale(0.95);
+}
+
+/* 10. Drop Zones (“Arcane Slots”) */
+.zone {
+  background: var(--color-secondary);
+  color: var(--color-navy);
+  font-weight: 600;
+  padding: 1rem 1.5rem;
+  border: 2px dashed var(--color-navy);
+  border-radius: 12px;
+  text-align: center;
+  min-width: 120px;
+  transition:
+    border-color var(--transition),
+    background var(--transition),
+    transform 0.2s;
+}
+.zone.over {
+  border-color: var(--color-primary);
+  background: var(--color-aqua);
+}
+.zone.correct {
+  border-color: var(--color-accent);
+  animation: pulseSuccess 0.6s ease-out forwards;
+}
+.zone.wrong {
+  border-color: var(--error);
+  animation: pulseError 0.6s ease-out forwards;
+}
+
+@keyframes pulseSuccess {
+  0%   { transform: scale(1); background: rgba(163,141,86,0.1); }
+  50%  { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+@keyframes pulseError {
+  0%   { transform: scale(1); background: rgba(220,53,69,0.1); }
+  50%  { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+/* 11. Fade‑In Animation */
+.word, .zone {
+  opacity: 0;
+  animation: fadeIn 0.4s forwards;
+}
+@keyframes fadeIn {
+  to { opacity: 1; }
+}
+
+/* 12. Notification Bar (Optional) */
+.message {
+  position: fixed; top: 1rem; left: 50%;
+  transform: translateX(-50%);
+  background: rgba(255,255,230,0.95);
+  color: var(--color-navy);
+  border: 1px solid var(--color-accent);
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  font-weight: bold; z-index: 1000;
+  opacity: 0; transition: opacity var(--transition);
+}
+.message.show {
+  opacity: 1;
+}
