@@ -168,7 +168,7 @@ app.get('/Game5', (req, res) => {
 
 // Welcome JSON
 app.get('/welcome', (req, res) => {
-  res.json({ status: 'success', message: 'Welcome!' });
+  res.render('pages/welcome');
 });
 
 // Registration API
