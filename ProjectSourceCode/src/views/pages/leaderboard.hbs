@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Bootstrap Leaderboard</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+  <div class="container py-5">
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <div class="card shadow rounded-4">
+          <div class="card-body">
+            <h3 class="card-title text-center mb-4">🏆 Leaderboard for Total Points</h3>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+                <span><strong>#1</strong> Alice</span>
+                <span class="badge bg-primary rounded-pill">1200</span>
+              </li>
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+                <span><strong>#2</strong> Bob</span>
+                <span class="badge bg-secondary rounded-pill">1100</span>
+              </li>
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+                <span><strong>#3</strong> Charlie</span>
+                <span class="badge bg-success rounded-pill">950</span>
+              </li>
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+                <span><strong>#4</strong> Dana</span>
+                <span class="badge bg-warning rounded-pill">850</span>
+              </li>
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+                <span><strong>#5</strong> Eve</span>
+                <span class="badge bg-danger rounded-pill">750</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <h2 class="text-center mb-4">Leaderboards for Individual Games</h2>
+  <div class="container py-5">
+    <div class="row justify-content-center g-4">
+      
+      <!-- Game Leaderboard Template -->
+      <!-- Repeat block for each game -->
+      <!-- Game 1 -->
+      <div class="col-sm-6 col-md-4 col-lg-3">
+        <div class="card shadow rounded-4 h-100">
+          <div class="card-body">
+            <h5 class="card-title text-center">🔡 Multiple Choice</h5>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item d-flex justify-content-between"><span>#1 Alice</span><span class="badge bg-primary">1200</span></li>
+              <li class="list-group-item d-flex justify-content-between"><span>#2 Bob</span><span class="badge bg-secondary">1100</span></li>
+              <li class="list-group-item d-flex justify-content-between"><span>#3 Charlie</span><span class="badge bg-success">950</span></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Game 2 -->
+      <div class="col-sm-6 col-md-4 col-lg-3">
+        <div class="card shadow rounded-4 h-100">
+          <div class="card-body">
+            <h5 class="card-title text-center">🔀 Drag & Drop</h5>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item d-flex justify-content-between"><span>#1 Dana</span><span class="badge bg-primary">980</span></li>
+              <li class="list-group-item d-flex justify-content-between"><span>#2 Eve</span><span class="badge bg-secondary">870</span></li>
+              <li class="list-group-item d-flex justify-content-between"><span>#3 Frank</span><span class="badge bg-success">820</span></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Game 3 -->
+      <div class="col-sm-6 col-md-4 col-lg-3">
+        <div class="card shadow rounded-4 h-100">
+          <div class="card-body">
+            <h5 class="card-title text-center">📇 Flashcards</h5>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item d-flex justify-content-between"><span>#1 Grace</span><span class="badge bg-primary">1340</span></li>
+              <li class="list-group-item d-flex justify-content-between"><span>#2 Heidi</span><span class="badge bg-secondary">1290</span></li>
+              <li class="list-group-item d-flex justify-content-between"><span>#3 Ivan</span><span class="badge bg-success">1210</span></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Game 4 -->
+      <div class="col-sm-6 col-md-4 col-lg-3">
+        <div class="card shadow rounded-4 h-100">
+          <div class="card-body">
+            <h5 class="card-title text-center">Game 4</h5>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item d-flex justify-content-between"><span>#1 Judy</span><span class="badge bg-primary">1150</span></li>
+              <li class="list-group-item d-flex justify-content-between"><span>#2 Kevin</span><span class="badge bg-secondary">1130</span></li>
+              <li class="list-group-item d-flex justify-content-between"><span>#3 Laura</span><span class="badge bg-success">1050</span></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Game 5 -->
+      <div class="col-sm-6 col-md-4 col-lg-3">
+        <div class="card shadow rounded-4 h-100">
+          <div class="card-body">
+            <h5 class="card-title text-center">Game 5</h5>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item d-flex justify-content-between"><span>#1 Mike</span><span class="badge bg-primary">990</span></li>
+              <li class="list-group-item d-flex justify-content-between"><span>#2 Nina</span><span class="badge bg-secondary">940</span></li>
+              <li class="list-group-item d-flex justify-content-between"><span>#3 Oscar</span><span class="badge bg-success">910</span></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
