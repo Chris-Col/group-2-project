@@ -68,7 +68,7 @@ app.use(
 app.use('/Games', express.static(path.join(__dirname, 'src/views/pages')));
 app.use('/pages', express.static(path.join(__dirname, 'src/views/pages')));
 // *****************************************************
-// <!-- Section 4 : API Routes -->
+// <!-- Section 4 : API Routes (GET) -->
 // *****************************************************
 
 const auth = (req, res, next) => {
