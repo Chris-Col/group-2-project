@@ -207,6 +207,20 @@ app.post('/register', async (req, res) => {
 // Profile page
 app.get('/profile', async (req, res) => {
   try {
+    const rawProgress = [
+      { name: "Multiple Choice", level: 4 },
+      { name: "Drag & Drop", level: 7 },
+      { name: "Flashcards", level: 10 },
+      { name: "Game 4", level: 6 },
+      { name: "Game 5", level: 2 }
+    ];
+    
+    // Add `percent` key to each item
+    const progress = rawProgress.map(game => ({
+      ...game,
+      percent: Math.round((game.level / 11) * 100)
+    }));
+
     const username = req.session.user;
     if (!username) return res.redirect('/login');
 
@@ -221,7 +235,8 @@ app.get('/profile', async (req, res) => {
       username: result.username,
       created_at: result.created_at.toDateString(),
       // profile_picture: `/images/profile_pictures/${result.user_id}.jpg`
-      profile_picture: `/images/profile_picture.jpg`
+      profile_picture: `/images/profile_picture.jpg`,
+      progress
     });
 
   } catch (error) {
