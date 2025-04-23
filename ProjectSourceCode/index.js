@@ -119,15 +119,14 @@ app.post('/login', async (req, res) => {
     query = `SELECT pw FROM users WHERE username = '${username}'`
     let results = await db.any(query)
     if (results.length === 0) {
-      res.status(404).send('User not Found');
-      return;
+      return res.render('pages/login', { message: 'User not found.' });
     }
     console.log(results)
     const database_password = results[0].pw
     const match = await bcrypt.compare(password, database_password);
     console.log('Password match:', match);
     if (!match) {
-        return res.render('pages/login', { message: 'Incorrect username or password.' });
+      return res.render('pages/login', { message: 'Incorrect username or password.' });
     }
     else{
     req.session.user = username;
@@ -201,7 +200,7 @@ app.post('/register', async (req, res) => {
     });
   } catch (err) {
     console.log(err);
-    return res.status(400).json({ message: 'Registration failed' });
+    return res.render('pages/register', { message: 'Registration failed. Username already exists.' });
   }
 });
 
