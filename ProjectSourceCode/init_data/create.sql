@@ -20,7 +20,7 @@ CREATE TABLE gameContent (
     answer TEXT NOT NULL,
     options JSON, -- Can be used to pass any JSON data to make it usable for each game
     difficulty_level INT NOT NULL,
-    FOREIGN KEY (game_id) REFERENCES Minigames(game_id)
+    FOREIGN KEY (game_id) REFERENCES minigames(game_id)
         ON DELETE CASCADE
 );
 
@@ -36,7 +36,7 @@ CREATE TABLE userProgress (
     score INT DEFAULT 0,
     FOREIGN KEY (user_id) REFERENCES Users(user_id)
         ON DELETE CASCADE,
-    FOREIGN KEY (game_id) REFERENCES Minigames(game_id)
+    FOREIGN KEY (game_id) REFERENCES minigames(game_id)
         ON DELETE CASCADE,
     FOREIGN KEY (content_id) REFERENCES GameContent(content_id)
         ON DELETE CASCADE

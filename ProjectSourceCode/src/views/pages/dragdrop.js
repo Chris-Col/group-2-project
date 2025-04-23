@@ -156,13 +156,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (ok){
           solved++;
-          const w=document.querySelector(`.word[data-idx='${idx}']`);
-          w.style.opacity=.35; w.draggable=false;
-
-          /* allow the green flash, then remove zone */
-          setTimeout(()=> z.remove(), 550);
-
-          if (solved === PAIRS.length){ toast('✨ Round cleared! ✨'); }
+          const w = document.querySelector(`.word[data-idx='${idx}']`);
+        
+          // Flash correct style, then remove both the source word and the drop zone
+          z.classList.add('correct');
+          setTimeout(() => {
+            z.remove();
+            if (w) w.remove();
+          }, 550);
+        
+          if (solved === PAIRS.length) toast('✨ Round cleared! ✨');
         }else{
           setTimeout(()=> z.classList.remove('wrong'), 650);
         }
