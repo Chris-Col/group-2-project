@@ -1,6 +1,18 @@
-INSERT INTO users (username, pw, created_at)
+/* Inserting into minigames table */
+INSERT INTO minigames (name, description)
 VALUES (
-  'hunorko',
-  'huko2764',
-  CURRENT_TIMESTAMP
+  'Multiple Choice',
+  'Pick the correct translation'
+);
+
+INSERT INTO minigames (name, description)
+VALUES (
+  'Drag & Drop',
+  'Match the word to the correct translation'
+);
+
+INSERT INTO minigames (name, description)
+VALUES (
+  'Flashcards',
+  'Enter the correct translation'
 );
