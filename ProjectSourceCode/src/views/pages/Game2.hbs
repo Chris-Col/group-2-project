@@ -6,6 +6,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/pages/dragdrop.css">
 
+
   <h1>Drag &amp; Drop Vocabulary</h1>
 
   <!-- toast -->
@@ -84,6 +85,7 @@
      const activeItem = document.querySelector(
        `.dropdown-menu a[href="?lang=${lang}"]`
      );
+     
      const toggle = document.getElementById('languageDropdown');
      if (activeItem && toggle) {
        toggle.textContent = activeItem.textContent;

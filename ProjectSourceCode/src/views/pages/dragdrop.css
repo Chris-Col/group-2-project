@@ -180,13 +180,12 @@ label{
  
  /* ---------- NAVBAR WIDTH FIX ------------------------------------------ */
  body > header {            /* header comes from {{> nav}} partial */
-   align-self: stretch;     /* override body’s centre-alignment   */
-   width: 100%;
+    /* override body’s centre-alignment   */
+   width: 110%;
  }
  /* --------------------------------------------------------------------- */
  /* 1) Take the header out of the flow by absolutely positioning it */
  body > header {
-   position: absolute;
    top: 0;
    left: 0;
    right: 0;
@@ -195,7 +194,6 @@ label{
  /* 2) Give the body some padding to avoid overlap */
  body {
    /* push everything *below* the header by its height */
-   padding-top: var(--navbar-height, 56px);
    /* still a flex container for centering content */
    display: flex;
    flex-direction: column;

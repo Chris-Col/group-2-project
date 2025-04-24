@@ -9,11 +9,13 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"></script>
 </head>
 <body>
-    <div class="container mt-4">
-        <h2 class="text-center mb-4">Play Games</h2>
+    <div class="text-center py-4 mb-4 subheader-bg">
+        <h1> Game Menu </h1>
+    </div>
+    <div class="game-container mt-4">
         <h3 class="text-center mb-4">Games You Can Play</h3>
 
-        <div class="row row-cols-1 row-cols-md-3 g-4">
+        <div class="row row-cols-2 row-cols-md-2 g-4">
             <!-- Card 1: Multiple Choice -->
             <div class="col">
                 <div class="card h-100">
@@ -22,8 +24,12 @@
                         <h5 class="card-title">Multiple Choice</h5>
                         <p class="card-text">Pick the correct choice!</p>
                     </div>
-                    <div class="card-footer">
-                        <a href="/Game1" class="btn btn-primary">Play Now</a>
+                        <div class="row my-4">
+                        <div class="col text-center">
+                            <button type="button" onclick="location.href='/Game1'" class="game-button button rounded">
+                            Play!
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -36,8 +42,12 @@
                         <h5 class="card-title">Drag & Drop</h5>
                         <p class="card-text">Improve your skills with fun drag & drop challenges!</p>
                     </div>
-                    <div class="card-footer">
-                        <a href="/Game2" class="btn btn-primary">Play Now</a>
+                        <div class="row my-4">
+                        <div class="col text-center">
+                            <button type="button" onclick="location.href='/Game2'" class="game-button button rounded">
+                            Play!
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -50,8 +60,12 @@
                         <h5 class="card-title">Flashcards</h5>
                         <p class="card-text">Choose the correct word!</p>
                     </div>
-                    <div class="card-footer">
-                        <a href="/Game3" class="btn btn-primary">Play Now</a>
+                        <div class="row my-4">
+                        <div class="col text-center">
+                            <button type="button" onclick="location.href='/Game3'" class="game-button button rounded">
+                            Play!
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -62,15 +76,19 @@
                     <img src="/images/finishSentence.png" class="card-img-top" alt="Game 4">
                     <div class="card-body">
                         <h5 class="card-title">Finish The Sentence</h5>
-                        <p class="card-text">A new game</p>
+                        <p class="card-text">Finish the sentence with the correct word!</p>
                     </div>
-                    <div class="card-footer">
-                        <a href="/Game4" class="btn btn-primary">Play Now</a>
+                        <div class="row my-4">
+                        <div class="col text-center">
+                            <button type="button" onclick="location.href='/Game4'" class="game-button button rounded">
+                            Play!
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Card 5: Game 5 -->
+            <!-- Card 5: Game 5
             <div class="col">
                 <div class="card h-100">
                     <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="Game 5">
@@ -78,11 +96,16 @@
                         <h5 class="card-title">Game 5</h5>
                         <p class="card-text">A new and exciting game to challenge your skills.</p>
                     </div>
-                    <div class="card-footer">
-                        <a href="/Game5" class="btn btn-primary">Play Now</a>
+                        <div class="row my-4">
+                        <div class="col text-center">
+                            <button type="button" onclick="location.href='/Game5'" class="game-button button rounded">
+                            Play!
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
+            -->
         </div>
     </div>
 

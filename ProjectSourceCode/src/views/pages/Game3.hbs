@@ -7,12 +7,11 @@
   <link rel="stylesheet" href="/pages/flashcards.css">
 </head>
 <body>
-  <div class="container">
-    <div class="game-wrapper">
-  <div class="container">
-    <h1>Flashcards</h1>
-    <div class="card">
-              <p id="current-language" style="margin-bottom: 20px;"></p>
+  <div class="text-center py-4 mb-4 subheader-bg">
+    <h3> Flashcards </h3>
+  </div>
+    <div class="container">
+            <p id="current-language" style="margin-bottom: 20px;"></p>
             <p id="translated-word">Click Start to begin!</p>
             <input type="text" id="user-input" placeholder="Enter English word" disabled />
             <button id="submit-btn" disabled>Submit</button>
@@ -20,10 +19,8 @@
             <p id="score">Score: 0</p>
             <button id="next-btn" disabled>Next</button>
             <button id="start-btn">Start Game</button>
+          </div>
         </div>
-  </div>
-    </div>
-
   <script src="/pages/flashcards.js" defer></script>
 </body>
 </html>

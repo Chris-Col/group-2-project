@@ -1,27 +1,67 @@
 <style>
         .login-row {
-            height: 500px;
+        height: 400px;
         }
+        
         body {
         font-family: 'Nunito', sans-serif;
-        background: #e3f2fd;
-        color: #333;
-        margin: 0;
-        padding: 0;
+        background: linear-gradient(to right, rgba(197, 214, 255, 0.63), white);
+        }
+
+        .card-body {
+        max-width: 650px;
+        font-family: 'Nunito', sans-serif;
+        background: linear-gradient(to bottom, rgba(255, 246, 215, 0.63), white);
+        border-top: 5px solid #b9ac3c2d;
         }
 
         header {
-        background-color: #1e88e5;
+        background-color: #4a91e2;
+        background-image: linear-gradient(180deg, #a9d5e2, #4A90E2);
         color: white;
         padding: 30px 20px;
         text-align: center;
-        border-bottom: 5px solid #1565c0;
+        border-bottom: 5px solid #3c77b9;
+        }
+
+        .subheader-bg {
+        color: rgba(0, 0, 0, 0.623);
+        background-image: linear-gradient(135deg, #77a9e2c2, transparent);
         }
 
         .container {
         max-width: 850px;
         margin: 40px auto;
-        background: white;
+        background-image: linear-gradient(135deg, #4a91e293, #4fb7da9d);
+        padding: 30px;
+        border-radius: 20px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .sub-container {
+        max-width: 850px;
+        min-width: 600px;
+        margin: 40px auto;
+        background-image: linear-gradient(135deg, rgba(255, 255, 255, 0.425),rgba(241, 255, 114, 0.507));
+        padding: 30px;
+        border-radius: 20px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .game-container {
+        max-width: 850px;
+        margin: 40px auto;
+        background-image: linear-gradient(135deg, #cfd15a18, #c3c46773);
+        padding: 30px;
+        border-radius: 20px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.212);
+        }
+
+        .nav-container {
+        max-width: 850px;
+        min-width: 850px;
+        margin: 40px auto;
+        background-color: rgba(255, 255, 255, 0.658);
         padding: 40px;
         border-radius: 20px;
         box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
@@ -32,7 +72,7 @@
         }
 
         h2 {
-        color: #1e88e5;
+        color: #00000081;
         }
 
         ol {
@@ -49,19 +89,23 @@
         box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
         }
 
-        button {
-        background-color: #1e88e5;
-        border: none;
-        padding: 12px 25px;
-        color: white;
-        font-size: 18px;
-        border-radius: 12px;
-        cursor: pointer;
-        transition: background-color 0.3s ease;
+        .game-button {
+        border: rgba(255, 246, 215, 0.63);
+        border width: 20px;
+        background-image: linear-gradient(to right, #046e00c7, #277a00b9);
+        padding: 10px 20px;
+        font-size: 20px;
+        color: rgb(255, 255, 255)
         }
 
-        button:hover {
-        background-color: #1565c0;
+        .button:hover { 
+        transform: scale(1.05);
+        box-shadow: 0 12px 24px rgba(190, 190, 190, 0.3), 0 6px 20px rgba(0, 0, 0, 0.25);
+        }
+
+        .button:active {
+        transform: translateY(4px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), 0 2px 5px rgba(0, 0, 0, 0.19);
         }
 
         .button-container {
@@ -69,10 +113,19 @@
         margin-top: 30px;
         }
 
-        footer {
+        .big-button {
+        border: transparent;
+        transform: scale(1.30);
+        background-image: linear-gradient(to right, transparent, #02ca1311, transparent);
+        padding: 10px 20px;
+        background-color: transparent;
+        }
+
+        .footer {
+        background-image: linear-gradient(to bottom, transparent, #4a91e24f);
+        align-items: center;
         text-align: center;
-        margin-top: 40px;
-        color: #555;
+        padding-top: 10px;
         font-size: 14px;
     }
 </style>
