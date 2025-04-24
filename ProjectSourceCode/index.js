@@ -256,6 +256,11 @@ app.get('/logout', (req, res) => {
   });
 });
 
+//Leaderboard route
+app.get('/leaderboard', (req, res) => {
+  res.render('pages/leaderboard');
+});
+
 app.get('/api/translate', async (req, res) => {
   const { q, source, target } = req.query;
   try {
