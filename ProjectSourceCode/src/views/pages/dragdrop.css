@@ -4,6 +4,13 @@
 /* 0. Imports & tokens                */
 /* ---------------------------------- */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+html {
+  /* cover the viewport, fixed so it scrolls with you */
+  background:
+    linear-gradient(var(--mask),var(--mask)),
+    url('/images/Game2_bg.png') center/cover no-repeat fixed;
+  height: 100%;
+}
 
 :root{
   --primary:#8a6fe2;
@@ -169,3 +176,43 @@ label{
   font-weight:600;text-align:center;
 }
 .scoreboard span{color:var(--primary-dark)}
+
+/* ---------- NAVBAR WIDTH FIX ------------------------------------------ */
+body > header {            /* header comes from {{> nav}} partial */
+  align-self: stretch;     /* override body’s centre-alignment   */
+  width: 100%;
+}
+/* --------------------------------------------------------------------- */
+/* 1) Take the header out of the flow by absolutely positioning it */
+body > header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+
+/* 2) Give the body some padding to avoid overlap */
+body {
+  /* push everything *below* the header by its height */
+  padding-top: var(--navbar-height, 56px);
+  /* still a flex container for centering content */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+/* 3) (Optional) If your content wrapper has a fixed max-height you can keep it centered
+      .wrapper will automatically sit centered in the space below the header */
+.wrapper {
+  width: 100%;
+  max-width: 1220px;
+}
+
+:root {
+  --navbar-height: 320px;   /* ← adjust this value in your devtools until it perfectly clears the header */
+}
+
+body {
+  padding-top: var(--navbar-height) !important;
+}
