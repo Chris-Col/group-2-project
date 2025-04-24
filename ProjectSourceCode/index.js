@@ -215,7 +215,7 @@ app.get('/profile', async (req, res) => {
     const rawProgress = [
       { name: "Multiple Choice", level: 4 },
       { name: "Drag & Drop", level: 7 },
-      { name: "Flashcards", level: 10 },
+      { name: "Flashcards", level: 9 },
       { name: "Finish The Sentence", level: 6 },
       { name: "Game 5", level: 2 }
     ];
@@ -223,7 +223,7 @@ app.get('/profile', async (req, res) => {
     // Add `percent` key to each item
     const progress = rawProgress.map(game => ({
       ...game,
-      percent: Math.round((game.level / 11) * 100)
+      percent: Math.round((game.level / 10) * 100)
     }));
 
     const username = req.session.user;
