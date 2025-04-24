@@ -7,21 +7,18 @@
   <link rel="stylesheet" href="/pages/finishSentence.css">
 </head>
 <body>
-  <div class="container">
-    <div class="game-wrapper">
-      <div class="game-container">
-        <h1>Finish the Sentence</h1>
-        <p id="current-language"></p>
-        <p id="translated-word">Click start to begin!</p>
-        <div id="choices"></div>
-        <p id="feedback"></p>
-        <p id="score">Score: 0</p>
-        <button id="next-btn" disabled>Next</button>
-        <button id="start-btn">Start Game</button>
-      </div>
-    </div>
+  <div class="text-center py-4 mb-4 subheader-bg">
+    <h3> Finish the Sentence </h3>
   </div>
-
+  <div class="container text-center">
+    <p id="current-language"></p>
+    <p id="translated-word">Click start to begin!</p>
+    <div id="choices"></div>
+    <p id="feedback"></p>
+    <p id="score">Score: 0</p>
+    <button id="next-btn" disabled>Next</button>
+    <button id="start-btn">Start Game</button>
+  </div>
   <script src="/pages/finishSentence.js" defer></script>
 </body>
 </html>

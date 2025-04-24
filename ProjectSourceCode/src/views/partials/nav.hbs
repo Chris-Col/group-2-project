@@ -1,6 +1,6 @@
 <header>
   <nav class="navbar navbar-expand-sm border-bottom">
-    <div class="container">
+    <div class="nav-container">
       <button
         class="navbar-toggler ms-auto"
         type="button"
@@ -15,28 +15,28 @@
       <div class="collapse navbar-collapse" id="navbar-collapse">
         <ul class="navbar-nav me-auto">
           {{#if user}}
-            <li class="nav-item">
+            <li class="nav-item button rounded-pill">
               <a class="nav-link" href="/profile">Profile</a>
             </li>
           {{else}}
-            <li class="nav-item">
+            <li class="nav-item button rounded-pill">
               <a class="nav-link" href="/register">Register</a>
             </li>
           {{/if}}
-          <li class="nav-item">
+          <li class="nav-item button rounded-pill">
             <a class="nav-link" href="/welcome">Welcome</a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item button rounded-pill">
             <a class="nav-link" href="/games">Games</a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item button rounded-pill">
             <a class="nav-link" href="/leaderboard">Leaderboard</a>
           </li>
         </ul>
 
         <ul class="navbar-nav ms-auto">
           <!-- Language Dropdown -->
-          <li class="nav-item dropdown me-2">
+          <li class="nav-item dropdown me-2 button rounded-pill">
             <a class="nav-link dropdown-toggle" href="#" id="languageDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               🌐 Language
             </a>
@@ -50,7 +50,7 @@
           </li>
 
           <!-- Logout Button -->
-          <li class="nav-item">
+          <li class="nav-item button rounded-pill">
             <a class="nav-link" href="/logout">Logout</a>
           </li>
         </ul>

@@ -8,14 +8,14 @@
 </head>
 <body>
 
-  <header>
-    <h1>Welcome to Speakeasy, {{username}}! 🌍</h1>
-    <p>Learn languages the fun way with interactive games!</p>
-  </header>
+  <div class="text-center py-4 mb-4 subheader-bg">
+    <h3> Welcome to Speakeasy, {{username}}! 🌍</h3>
+    <h5>Learn languages the fun way with interactive games!</h5>
+  </div>
 
-  <div class="container">
-    <h2>How to Get Started:</h2>
-    <ol>
+  <div class="container justify-content-center text-center"> 
+    <h2>How to Get Started</h2>
+    <ol class="d-inline-block text-start">
       <li>Pick a language you want to practice.</li>
       <li>Scroll through exciting games like Drag & Drop, Flashcards, or Multiple choice.</li>
       <li>Read the description of the game to see what it's about.</li>
@@ -23,8 +23,12 @@
       <li>Follow the instructions, earn points, and hit a new high score!</li>
     </ol>
 
-    <div class="button-container">
-      <button onclick="location.href='/games'">Start Exploring Games</button>
+    <div class="row my-4">
+      <div class="col text-center">
+        <button type="button" onclick="location.href='/games'" class="btn btn-primary button rounded-lg fs-5">
+          Play Now!
+        </button>
+      </div>
     </div>
   </div>
 </body>

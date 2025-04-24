@@ -8,24 +8,35 @@
 {{> message}}
 </head>
 <body>
-    <div class="container-fluid">
-        <div class="col">
-            <div class="row login-row justify-content-center align-items-center">
-                <div class="text-center">
-    <h2>Register</h2>
-    <form action="/register" method="POST">
-        <label for="username">Username:</label>
-        <input type="text" id="username" name="username" required>
-        <br>
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" required>
-        <br>
-        <button type="submit">Register</button>
-    </form>
-    <p>Already have an account? <a href="/login">Login here</a></p>
+<div class="container-fluid">
+    <div class="col">
+      <div class="row login-row justify-content-center align-items-center">
+        <div class="col-12 col-md-6 col-lg-4">
+          <div class="text-center">
+            <h2 class="display-5 fw-bold mb-4">Sign Up</h2>
+            <form action="/register" method="POST">
+
+            <!-- Username Field  -->
+              <div class="mb-3 row align-items-center">
+                <input type="username" id="username" name="username" class="form-control ps-3" placeholder="Username" required>
+              </div>
+
+            <!-- Password Field -->
+              <div class="mb-3 row align-items-center">
+                <input type="password" id="password" name="password" class="form-control ps-3" placeholder="Password" required>
+              </div>
+
+            <!-- Button at the bottom -->
+              <div class="align-items-center">
+                <button type="submit" class="btn btn-primary button rounded-lg fs-5">Register</button>
+              </div>
+            </form>
+            
+            <p>Already have an account? <a href="/login">Login here</a></p>
+            
+        </div>
     </div>
-    </div>
-    </div>
-    </div>
+</div>
+</div>
 </body>
 </html>
