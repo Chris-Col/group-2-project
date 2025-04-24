@@ -29,11 +29,8 @@ CREATE TABLE userProgress (
     progress_id SERIAL PRIMARY KEY,
     user_id INT NOT NULL,
     game_id INT NOT NULL,
-    content_id INT NOT NULL,
-    attempts INT DEFAULT 0,
-    is_correct BOOLEAN DEFAULT FALSE,
-    last_played TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    score INT DEFAULT 0,
+    lang VARCHAR(30) NOT NULL,
+    lev INT NOT NULL DEFAULT 0,
     FOREIGN KEY (user_id) REFERENCES Users(user_id)
         ON DELETE CASCADE,
     FOREIGN KEY (game_id) REFERENCES minigames(game_id)
