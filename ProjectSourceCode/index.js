@@ -152,7 +152,7 @@ app.get('/Game1', (req, res) => {
 });
 
 app.get('/Game2', (req, res) => {
-  res.render('pages/Game2', { layout: false }); // Have we created dragdrop yet
+  res.render('pages/Game2');
 });
 
 app.get('/Game3', (req, res) => {
@@ -172,6 +172,11 @@ app.get('/welcome', (req, res) => {
   res.render('pages/welcome', {
     username: req.session.user
   });
+});
+
+//Leaderboard
+app.get('/leaderboard', (req, res) => {
+  res.render('pages/leaderboard');
 });
 
 // Registration API
@@ -210,15 +215,15 @@ app.get('/profile', async (req, res) => {
     const rawProgress = [
       { name: "Multiple Choice", level: 4 },
       { name: "Drag & Drop", level: 7 },
-      { name: "Flashcards", level: 10 },
-      { name: "Game 4", level: 6 },
+      { name: "Flashcards", level: 9 },
+      { name: "Finish The Sentence", level: 6 },
       { name: "Game 5", level: 2 }
     ];
     
     // Add `percent` key to each item
     const progress = rawProgress.map(game => ({
       ...game,
-      percent: Math.round((game.level / 11) * 100)
+      percent: Math.round((game.level / 10) * 100)
     }));
 
     const username = req.session.user;
