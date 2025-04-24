@@ -124,12 +124,17 @@ document.addEventListener('DOMContentLoaded', () => {
   /* 7.  Render board                                 */
   /*--------------------------------------------------*/
   function renderBoard(){
+    const instructions = document.getElementById('instructions');
+    if (instructions) {
+      instructions.style.display = 'none';
+    }
+
     wordsDiv.innerHTML = zonesDiv.innerHTML = '';
 
     /* draggable words (source language) */
     shuffle(PAIRS.map((_,i)=>i)).forEach(idx=>{
       wordsDiv.insertAdjacentHTML('beforeend',
-        `<div class="word" draggable="true" data-idx="${idx}">${PAIRS[idx].src}</div>`);
+        `<div class="word btn btn-primary game-button-2 rounded" draggable="true" data-idx="${idx}">${PAIRS[idx].src}</div>`);
     });
 
     wordsDiv.querySelectorAll('.word').forEach(card=>{
@@ -142,7 +147,7 @@ document.addEventListener('DOMContentLoaded', () => {
     shuffle(PAIRS.map(p=>p.tgt)).forEach(txt=>{
       const z=document.createElement('div');
       z.className='zone'; z.textContent=txt;
-
+      
       z.addEventListener('dragover', e=>{e.preventDefault(); z.classList.add('over');});
       z.addEventListener('dragleave', ()=> z.classList.remove('over'));
 
