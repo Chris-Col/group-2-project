@@ -29,6 +29,8 @@ document.addEventListener('DOMContentLoaded', () => {
         if (langDisplay) {
             langDisplay.textContent = `Translating to: ${langLabel}`;
         }
+        const MAX_SCORE = 10;
+
 
       
       const words = Object.values(vocab).flat(); // combines all categories into one array
@@ -106,20 +108,36 @@ document.addEventListener('DOMContentLoaded', () => {
 
     submitBtn.addEventListener('click', () => {
         const answer = userInput.value.trim().toLowerCase();
+        
         if (answer === currentWord.toLowerCase()) {
-            feedbackEl.textContent = 'Correct!';
+            feedbackEl.textContent = '✅ Correct!';
             score++;
             correctWords.add(currentWord);
         } else {
-            feedbackEl.textContent = `Incorrect. The correct word was "${currentWord}".`;
+            feedbackEl.textContent = `❌ Incorrect. The correct word was "${currentWord}".`;
         }
+    
         scoreEl.textContent = `Score: ${score}`;
         submitBtn.disabled = true;
         userInput.disabled = true;
-        nextBtn.disabled = false;
+    
+        if (score >= MAX_SCORE) {
+            feedbackEl.textContent = `🎉 You’ve mastered ${MAX_SCORE} words! Well done!`;
+            nextBtn.disabled = true;
+            startBtn.disabled = false; // Optional: allow restart
+        } else {
+            nextBtn.disabled = false;
+        }
     });
+    
 
     nextBtn.addEventListener('click', () => {
         newFlashcard();
+    });
+
+    document.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter' && !nextBtn.disabled) {
+            nextBtn.click();
+        }
     });
 });

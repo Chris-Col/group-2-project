@@ -29,7 +29,8 @@ document.addEventListener('DOMContentLoaded', () => {
       if (langDisplay) {
           langDisplay.textContent = `Translating to: ${langLabel}`;
       }
-      
+      const MAX_SCORE = 10;
+
       const words = Object.values(vocab).flat(); // combines all categories into one array
     let currentWord = '';
     let translatedWord = '';
@@ -126,14 +127,22 @@ document.addEventListener('DOMContentLoaded', () => {
         if (selected === currentWord) {
             feedbackEl.textContent = '✅ Correct!';
             score++;
-            completedWords.add(currentWord); // ✅ Track completed word
+            completedWords.add(currentWord);
         } else {
             feedbackEl.textContent = `❌ Incorrect. The correct answer was "${currentWord}".`;
         }
     
         scoreEl.textContent = `Score: ${score}`;
-        nextBtn.disabled = false;
+    
+        if (score >= MAX_SCORE) {
+            feedbackEl.textContent = `🎉 You’ve mastered ${MAX_SCORE} words! Great job!`;
+            nextBtn.disabled = true;
+            startBtn.disabled = false; // let them restart if you want
+        } else {
+            nextBtn.disabled = false;
+        }
     }
+    
     
 
     startBtn.addEventListener('click', () => {
@@ -146,4 +155,11 @@ document.addEventListener('DOMContentLoaded', () => {
     nextBtn.addEventListener('click', () => {
         newQuestion();
     });
+    
+    document.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter' && !nextBtn.disabled) {
+            nextBtn.click();
+        }
+    });
+    
 });

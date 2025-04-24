@@ -3,10 +3,25 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Game 4</title>
-  <link rel="stylesheet" href="/pages/multipleChoice.css">
+  <title>Finish The Sentence</title>
+  <link rel="stylesheet" href="/pages/finishSentence.css">
 </head>
-<div class="container">
-    <h1>Game 4</h1>
+<body>
+  <div class="container">
+    <div class="game-wrapper">
+      <div class="game-container">
+        <h1>Finish the Sentence</h1>
+        <p id="current-language"></p>
+        <p id="translated-word">Click start to begin!</p>
+        <div id="choices"></div>
+        <p id="feedback"></p>
+        <p id="score">Score: 0</p>
+        <button id="next-btn" disabled>Next</button>
+        <button id="start-btn">Start Game</button>
+      </div>
+    </div>
   </div>
+
+  <script src="/pages/finishSentence.js" defer></script>
+</body>
 </html>
