@@ -152,7 +152,7 @@ app.get('/Game1', (req, res) => {
 });
 
 app.get('/Game2', (req, res) => {
-  res.render('pages/Game2', { layout: false }); // Have we created dragdrop yet
+  res.render('pages/Game2');
 });
 
 app.get('/Game3', (req, res) => {

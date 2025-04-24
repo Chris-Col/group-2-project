@@ -1,17 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
+
   <meta charset="UTF-8">
   <title>Drag‑and‑Drop Vocabulary</title>
 
   <!-- fonts + css -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/pages/dragdrop.css">
-</head>
-<body>
-
-  <!-- back -->
-  <a class="back-btn" href="/games">← Games</a>
 
   <h1>Drag &amp; Drop Vocabulary</h1>
 
@@ -74,5 +67,27 @@
   </div> <!-- /wrapper -->
 
   <script src="/pages/dragdrop.js"></script>
-</body>
-</html>
+  <script>
+   document.addEventListener('DOMContentLoaded', () => {
+     // 1) read ?lang=xx from the URL
+     const params = new URLSearchParams(window.location.search);
+     const lang   = params.get('lang');
+     if (!lang) return;
+ 
+     // 2) find your "To" select (#target) and set its value
+     const toSelect = document.getElementById('target');
+     if (toSelect) {
+       toSelect.value = lang;
+     }
+ 
+     // 3) (optional) swap the navbar toggle text to the chosen language
+     const activeItem = document.querySelector(
+       `.dropdown-menu a[href="?lang=${lang}"]`
+     );
+     const toggle = document.getElementById('languageDropdown');
+     if (activeItem && toggle) {
+       toggle.textContent = activeItem.textContent;
+     }
+   });
+ </script>
+ {{> footer}}
