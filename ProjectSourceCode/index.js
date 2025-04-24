@@ -26,7 +26,7 @@ const hbs = handlebars.create({
 
 // database configuration
 const dbConfig = {
-  host: 'db', // the database server
+  host: process.env.HOST, // the database server
   port: 5432, // the database port
   database: process.env.POSTGRES_DB, // the database name
   user: process.env.POSTGRES_USER, // the user account to connect with
@@ -254,11 +254,6 @@ app.get('/logout', (req, res) => {
     }
     res.redirect('/login');
   });
-});
-
-//Leaderboard route
-app.get('/leaderboard', (req, res) => {
-  res.render('pages/leaderboard');
 });
 
 app.get('/api/translate', async (req, res) => {
