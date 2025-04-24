@@ -174,6 +174,11 @@ app.get('/welcome', (req, res) => {
   });
 });
 
+//Leaderboard
+app.get('/leaderboard', (req, res) => {
+  res.render('pages/leaderboard');
+});
+
 // Registration API
 app.post('/register', async (req, res) => {
   const { username, password } = req.body;
@@ -211,7 +216,7 @@ app.get('/profile', async (req, res) => {
       { name: "Multiple Choice", level: 4 },
       { name: "Drag & Drop", level: 7 },
       { name: "Flashcards", level: 10 },
-      { name: "Game 4", level: 6 },
+      { name: "Finish The Sentence", level: 6 },
       { name: "Game 5", level: 2 }
     ];
     
