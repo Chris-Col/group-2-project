@@ -97,10 +97,12 @@ app.get('/', (req, res) => {
 });
 
 app.get('/register', (req, res) => {
+  res.render('pages/register', { pageClass: 'no-darkmode' });
   return res.status(200).render('pages/register');
 });
 
 app.get('/login', (req, res) => {
+  res.render('pages/login', { pageClass: 'no-darkmode' });
   return res.status(200).render('pages/login');
 });
 

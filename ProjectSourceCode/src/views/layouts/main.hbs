@@ -8,11 +8,31 @@
         background: linear-gradient(to right, rgba(197, 214, 255, 0.63), white);
         }
 
+        body.dark-mode {
+        background: rgba(0, 8, 31, 0.856);
+        color: #cacaca;
+        }
+
+        body.dark-mode .card, 
+        body.dark-mode .card p, 
+        body.dark-mode .card #choices {
+        color: rgb(199, 199, 199) !important; /* Force the text color to be white */
+        background-color: rgb(23, 36, 94)
+        }
+
         .card-body {
         max-width: 650px;
         font-family: 'Nunito', sans-serif;
         background: linear-gradient(to bottom, rgba(255, 246, 215, 0.63), white);
         border-top: 5px solid #b9ac3c2d;
+        }
+
+        body.dark-mode .card-body {
+        max-width: 650px;
+        font-family: 'Nunito', sans-serif;
+        background: linear-gradient(to bottom, rgba(0, 31, 77, 0.63), rgb(23, 36, 94));
+        border-top: 5px solid #b9ac3c2d;
+        color: rgb(255, 255, 255)
         }
 
         header {
@@ -24,8 +44,23 @@
         border-bottom: 5px solid #3c77b9;
         }
 
+        body.dark-mode header {
+        background-color: #295180;
+        background-image: linear-gradient(180deg, #316c7e, #0a3b74);
+        color: rgb(0, 0, 0);
+        padding: 30px 20px;
+        text-align: center;
+        border-bottom: 5px solid #182f4b;
+        }
+
+
         .subheader-bg {
         color: rgba(0, 0, 0, 0.623);
+        background-image: linear-gradient(135deg, #77a9e2c2, transparent);
+        }
+
+        body.dark-mode .subheader-bg {
+        color: rgba(199, 199, 199, 0.89);
         background-image: linear-gradient(135deg, #77a9e2c2, transparent);
         }
 
@@ -38,6 +73,11 @@
         box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
         }
 
+        body.dark-mode .container {
+        background-image: linear-gradient(135deg, #8fa1b493, #849ca79d);
+        color: black
+        }
+
         .sub-container {
         max-width: 850px;
         min-width: 600px;
@@ -48,10 +88,29 @@
         box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
         }
 
+        body.dark-mode .sub-container {
+        background-image: linear-gradient(135deg, rgba(0, 42, 105, 0.425),rgba(0, 5, 82, 0.507));
+        color: white;
+        }
+
         .game-container {
         max-width: 850px;
         margin: 40px auto;
         background-image: linear-gradient(135deg, #cfd15a18, #c3c46773);
+        padding: 30px;
+        border-radius: 20px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.212);
+        }
+
+        body.dark-mode .game-container {
+        background-image: linear-gradient(135deg, #5a70d118, #67aac473);
+        color: white;
+        }
+
+        .game-container-2 {
+        max-width: 850px;
+        margin: 40px auto;
+        background-image: linear-gradient(135deg, #5aa5d118, #6775c473);
         padding: 30px;
         border-radius: 20px;
         box-shadow: 0 10px 25px rgba(0, 0, 0, 0.212);
@@ -65,6 +124,18 @@
         padding: 40px;
         border-radius: 20px;
         box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        color: black
+        }
+
+        body.dark-mode .nav-container {
+        max-width: 850px;
+        min-width: 850px;
+        margin: 40px auto;
+        background-color: rgba(182, 182, 182, 0.658);
+        padding: 40px;
+        border-radius: 20px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        color: rgb(196, 196, 196)
         }
 
         h1, h2 {
@@ -98,6 +169,12 @@
         color: rgb(255, 255, 255)
         }
 
+        body.dark-mode .game-button {
+        border: rgba(255, 246, 215, 0.63);
+        background-color: rgb(87, 90, 86);
+        color: rgb(255, 255, 255);
+        }
+
         .button:hover { 
         transform: scale(1.05);
         box-shadow: 0 12px 24px rgba(190, 190, 190, 0.3), 0 6px 20px rgba(0, 0, 0, 0.25);
@@ -127,7 +204,14 @@
         text-align: center;
         padding-top: 10px;
         font-size: 14px;
-    }
+        }
+
+        body.dark-mode .footer {
+        color: rgb(204, 204, 204) !important;
+        background-image: linear-gradient(to bottom, transparent, #92bef04f);
+        }
+
+
 </style>
 
 {{> head}}
@@ -135,5 +219,8 @@
 {{{body}}}
 {{> footer}}
 
+<script src="/pages/profile.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"></script>
+
+<body class="{{pageClass}}"></body>

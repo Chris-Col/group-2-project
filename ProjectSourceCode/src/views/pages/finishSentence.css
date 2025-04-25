@@ -69,10 +69,21 @@ h1 {
 }
 
 /* Start / Next Buttons */
-#next-btn,
+#next-btn {
+    background-color: #007932;
+    color: rgb(255, 255, 255);
+    border: none;
+    padding: 10px 16px;
+    font-size: 15px;
+    margin: 5px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
 #start-btn {
-    background-color: #27ae60;
-    color: white;
+    background-color: #007932;
+    color: rgb(255, 255, 255);
     border: none;
     padding: 10px 16px;
     font-size: 15px;
