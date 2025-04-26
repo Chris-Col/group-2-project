@@ -6,6 +6,7 @@
         body {
         font-family: 'Nunito', sans-serif;
         background: linear-gradient(to right, rgba(197, 214, 255, 0.63), white);
+        display: flex;
         }
 
         body.dark-mode {
@@ -138,6 +139,16 @@
         color: rgb(196, 196, 196)
         }
 
+        .wrapper{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 20px;
+        flex-wrap: wrap;
+        padding: 2rem 4vw;
+        margin: 40px auto;
+        }
+
         h1, h2 {
         margin-top: 0;
         }
@@ -176,18 +187,33 @@
         }
 
         .button:hover { 
+
+        .game-button-2 {
+        border: rgba(255, 246, 215, 0.63);
+        border width: 20px;
+        background-image: linear-gradient(135deg, #4a91e293, #4fb7da9d);
+        padding: 10px 20px;
+        font-size: 15px;
+        color: rgb(255, 255, 255)
+        }
+
+        .button:hover{ 
+
         transform: scale(1.05);
         box-shadow: 0 12px 24px rgba(190, 190, 190, 0.3), 0 6px 20px rgba(0, 0, 0, 0.25);
         }
 
-        .button:active {
+        .button:active{
         transform: translateY(4px);
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), 0 2px 5px rgba(0, 0, 0, 0.19);
         }
 
         .button-container {
         text-align: center;
-        margin-top: 30px;
+        background-image: linear-gradient(90deg, #00351693, #4fdaac9d);
+        padding: 10px 20px;
+        margin-top: 10px;
+        margin-bottom: 10px;
         }
 
         .big-button {
