@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const langLabel = getLanguageLabel(langCode);
         const langDisplay = document.getElementById('current-language');
         if (langDisplay) {
-            langDisplay.textContent = `Translating to: ${langLabel}`;
+            langDisplay.textContent = `Translating from ${langLabel}`;
         }
         const MAX_SCORE = 10;
 
@@ -91,7 +91,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const targetLang = getTargetLanguage();
         translatedWord = await translateText(currentWord, 'en', targetLang);
 
-        translatedWordEl.textContent = `Translate this word: ${translatedWord}`;
+        translatedWordEl.style.fontSize = '32px';
+        translatedWordEl.style.fontWeight = 'bold'; 
+        translatedWordEl.textContent = `${translatedWord}`;
         submitBtn.disabled = false;
         userInput.disabled = false;
         userInput.focus();
