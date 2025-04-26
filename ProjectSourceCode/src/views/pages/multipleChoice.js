@@ -124,7 +124,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const targetLang = getTargetLanguage();
         translatedWord = await translateText(currentWord, 'en', targetLang);
 
-        translatedWordEl.textContent = `What is the English word for: "${translatedWord}"?`;
+        translatedWordEl.style.fontSize = '32px'; 
+        translatedWordEl.style.fontWeight = 'bolds'; 
+        translatedWordEl.textContent = `${translatedWord}`;
 
         const choices = new Set([currentWord]);
         while (choices.size < 4) {
