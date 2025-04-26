@@ -16,24 +16,21 @@
         <ul class="navbar-nav me-auto">
           {{#if user}}
             <li class="nav-item button rounded-pill">
-              <a class="nav-link {{#if (eq currentPath '/profile')}}active{{/if}}" href="/profile">Profile</a>
+              <a class="nav-link" href="/profile">Profile</a>
             </li>
           {{else}}
             <li class="nav-item button rounded-pill">
-              <a class="nav-link {{#if (eq currentPath '/register')}}active{{/if}}" href="/register">Register</a>
+              <a class="nav-link" href="/register">Register</a>
             </li>
           {{/if}}
-
           <li class="nav-item button rounded-pill">
-            <a class="nav-link {{#if (eq currentPath '/welcome')}}active{{/if}}" href="/welcome">Welcome</a>
+            <a class="nav-link" href="/welcome">Welcome</a>
           </li>
-
           <li class="nav-item button rounded-pill">
-            <a class="nav-link {{#if (eq currentPath '/games')}}active{{/if}}" href="/games">Games</a>
+            <a class="nav-link" href="/games">Games</a>
           </li>
-
           <li class="nav-item button rounded-pill">
-            <a class="nav-link {{#if (eq currentPath '/leaderboard')}}active{{/if}}" href="/leaderboard">Leaderboard</a>
+            <a class="nav-link" href="/leaderboard">Leaderboard</a>
           </li>
         </ul>
 
