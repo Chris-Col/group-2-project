@@ -22,6 +22,11 @@ const hbs = handlebars.create({
   extname: 'hbs',
   layoutsDir: path.join(__dirname, 'src/views/layouts'),
   partialsDir: path.join(__dirname, 'src/views/partials'),
+  helpers: {
+    eq: function (a, b) {
+      return a === b;
+    }
+  }
 });
 
 // database configuration
@@ -146,7 +151,10 @@ app.post('/login', async (req, res) => {
 app.get('/games', (req, res) => {
   return res
     .status(200)
-    .render('pages/games', { target_language: req.query.lang || 'en' });
+    .render('pages/games', {
+      target_language: req.query.lang || 'en',
+      currentPath: '/games' 
+    });
 });
 
 app.get('/Game1', (req, res) => {
@@ -172,13 +180,16 @@ app.get('/Game5', (req, res) => {
 // Welcome
 app.get('/welcome', (req, res) => {
   res.render('pages/welcome', {
-    username: req.session.user
+    username: req.session.user,
+    currentPath: '/welcome' 
   });
 });
 
 //Leaderboard
 app.get('/leaderboard', (req, res) => {
-  res.render('pages/leaderboard');
+  res.render('pages/leaderboard', {
+    currentPath: '/leaderboard' 
+  });
 });
 
 // Registration API
@@ -241,7 +252,7 @@ app.get('/profile', async (req, res) => {
     res.render('pages/profile', {
       username: result.username,
       created_at: result.created_at.toDateString(),
-      // profile_picture: `/images/profile_pictures/${result.user_id}.jpg`
+      currentPath: '/profile',
       profile_picture: `/images/profile_picture.jpg`,
       progress
     });
