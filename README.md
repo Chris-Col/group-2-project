@@ -25,7 +25,7 @@ Jake Gao/Hao4851/jake.gao@colorado.edu
 1. Clone the repository.
 2. Install dependencies using `npm install`.
 3. Set up environment variables for database
-# database credentials
+
 POSTGRES_USER="postgres"
 POSTGRES_PASSWORD="pwd"
 POSTGRES_DB="speakeasy_db"
