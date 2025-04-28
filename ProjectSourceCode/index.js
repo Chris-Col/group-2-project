@@ -215,11 +215,10 @@ app.post('/register', async (req, res) => {
 app.get('/profile', async (req, res) => {
   try {
     const rawProgress = [
-      { name: "Multiple Choice", level: 4 },
+      { name: "Multiple Choice", level: 4},
       { name: "Drag & Drop", level: 7 },
       { name: "Flashcards", level: 9 },
-      { name: "Finish The Sentence", level: 6 },
-      { name: "Game 5", level: 2 }
+      { name: "Finish The Sentence", level: 6 }
     ];
     
     // Add `percent` key to each item

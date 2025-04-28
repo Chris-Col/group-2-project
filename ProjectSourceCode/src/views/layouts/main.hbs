@@ -238,12 +238,26 @@
         background-image: linear-gradient(to bottom, transparent, #92bef04f);
         }
 
+        body {
+        opacity: 0;
+        transition: opacity 0.1s ease-in-out;
+        }
 
+        body.fade-in {
+        opacity: 1;
+        }
+        
 </style>
+<style>body { opacity: 0; transition: opacity 0.6s ease-in-out; }</style>
 
 {{> head}}
 {{> nav}}
 {{{body}}}
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    document.body.classList.add('fade-in');
+  });
+</script>
 {{> footer}}
 
 <script src="/pages/profile.js"></script>

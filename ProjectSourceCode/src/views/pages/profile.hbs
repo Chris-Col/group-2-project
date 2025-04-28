@@ -1,8 +1,10 @@
 <link rel="stylesheet" href="/pages/profile.css">
 <script src="/pages/profile.js"></script>
+
 <!-- Profile pic & Username -->
 <div class="sub-container">
   <h3 class="text-center">Your Profile</h3>
+
   <div class="card mx-auto mt-4" style="max-width: 400px; border-radius: 20px;">
     <img src="/images/profile_picture.jpg" alt="Profile" width="200" height="200" class="d-block mx-auto mt-3 rounded-circle">
     <div class="card-body text-center" style="border-radius: 20px;">
@@ -11,31 +13,51 @@
     </div>
   </div>
 
-<!-- Progress Section -->
-<div class="card mt-4 mx-auto" style="max-width: 400px; border-radius: 20px;">
-  <div class="card-body" style="border-radius: 20px;">
-    <h5 class="card-title text-center">Game Progress</h5>
-    {{#each progress}}
+  <!-- Progress Section -->
+  <div class="card mt-4 mx-auto" style="max-width: 400px; border-radius: 20px;">
+    <div class="card-body" style="border-radius: 20px;">
+
+      <h5 class="card-title text-center">Game Progress</h5>
+
+      <!-- Language Dropdown -->
       <div class="mb-3">
-        <label class="form-label">{{this.name}} (Level {{this.level}}/10)</label>
-        <div class="progress" style="height: 20px;">
-          <div class="progress-bar bg-success" role="progressbar" 
-                style="width: {{this.percent}}%;" 
-                aria-valuenow="{{this.level}}" 
-                aria-valuemin="0" aria-valuemax="11">
-          </div>
-        </div>
+        <label for="languageSelect" class="form-label">Select Language:</label>
+        <select id="languageSelect" class="form-select">
+          <option value="All">All</option>
+          <option value="Spanish">Spanish</option>
+          <option value="German">German</option>
+          <option value="French">French</option>
+          <option value="Italian">Italian</option>
+          <option value="Japanese">Japanese</option>
+          <option value="Chinese">Chinese</option>
+        </select>
       </div>
-    {{/each}}
+
+      <!-- Progress Bars -->
+      <div id="progressContainer">
+        {{#each progress}}
+          <div class="progress-item mb-3" data-language="{{this.language}}">
+            <label class="form-label">{{this.name}} (Level {{this.level}}/10)</label>
+            <div class="progress" style="height: 20px;">
+              <div class="progress-bar bg-success" role="progressbar" 
+                   style="width: {{this.percent}}%;" 
+                   aria-valuenow="{{this.level}}" 
+                   aria-valuemin="0" aria-valuemax="11">
+              </div>
+            </div>
+          </div>
+        {{/each}}
+      </div>
+
+    </div>
   </div>
-</div>
 
   <!--- Dark Mode --->
   <div class="toggle-darkmode text-center mt-4">
-  <label class="switch">
-    <input type="checkbox" id="darkModeToggle">
-    <span class="slider"></span>
-  </label>
-  <span class="label-text">Dark Mode</span>
-</div>
+    <label class="switch">
+      <input type="checkbox" id="darkModeToggle">
+      <span class="slider"></span>
+    </label>
+    <span class="label-text">Dark Mode</span>
+  </div>
 </div>
