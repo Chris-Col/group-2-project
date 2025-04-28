@@ -1,4 +1,4 @@
-##1. Description
+## 1. Description
 Speakeasy
 Welcome to Speakeasy! A language-learning app that features interactive minigames, user login and password authentication, as well as an easy-to-use interactive UI.
 
@@ -31,7 +31,6 @@ POSTGRES_PASSWORD="pwd"
 POSTGRES_DB="speakeasy_db"
 HOST="db"
 
-# Node vars
 SESSION_SECRET="secret"
 
 4. Navigate to the ‘ProjectSourceCode’ folder in your terminal (cd ProjectSourceCode)
