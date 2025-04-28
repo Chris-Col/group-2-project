@@ -1,0 +1,21 @@
+4/3
+
+Created working function to translate text using Google translate to use for games.
+Built login, registration, and games handlebars files.
+Created SQL tables to be used for username and password authentication.
+Built main handlebars file which will contain CSS for all pages.
+
+4/10 
+
+Created 3 javascript games, flashcards, drag & drop and multiple choice.
+Created a simple CSS style that applys to all pages.
+Updated API routes to login, register and games files.
+Created 4 games pages to navigate to the games.
+Built profile page to display profile information.
+
+4/17
+Updated CSS style to look visually appealing
+Updated API routes to navigate to all 4 games pages.
+Fixed user authentication issues.
+Created 1 game, finish the sentence.
+Updated drag & drop game with new features.
