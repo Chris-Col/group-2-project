@@ -25,14 +25,6 @@ Jake Gao/Hao4851/jake.gao@colorado.edu
 1. Clone the repository.
 2. Install dependencies using `npm install`.
 3. Set up environment variables for database
-
-POSTGRES_USER="postgres"
-POSTGRES_PASSWORD="pwd"
-POSTGRES_DB="speakeasy_db"
-HOST="db"
-
-SESSION_SECRET="secret"
-
 4. Navigate to the ‘ProjectSourceCode’ folder in your terminal (cd ProjectSourceCode)
 5. Run the application using `docker compose up`.
 6. Open your browser and navigate to `http://localhost:3000`.
